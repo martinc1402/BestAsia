@@ -15,16 +15,18 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h4 className="font-medium text-sm text-body mb-3">Tools</h4>
+            <h4 className="font-medium text-sm text-body mb-3">The Masthead</h4>
             <ul className="space-y-2 text-sm text-secondary">
+              <li><Link href="/editors" className="hover:text-body transition-colors">The editors</Link></li>
+              <li><Link href="/best" className="hover:text-body transition-colors">The Lists</Link></li>
               <li><Link href="/quiz" className="hover:text-body transition-colors">Take the Quiz</Link></li>
-              <li><Link href="/manila" className="hover:text-body transition-colors">Neighborhoods</Link></li>
+              <li><Link href="mailto:editors@bestphilippines.co" className="hover:text-body transition-colors">Pitch a place</Link></li>
             </ul>
           </div>
           <div className="col-span-2 sm:col-span-2">
             <h4 className="font-medium text-sm text-body mb-3">BestPhilippines</h4>
             <p className="text-sm text-secondary max-w-xs">
-              Fewer venues. Better curation. Smarter recommendations.
+              Fewer venues. Better curation. Three editors, arguing.
             </p>
           </div>
         </div>

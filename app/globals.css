@@ -160,11 +160,11 @@ body {
 @utility numeral {
   font-family: var(--font-noto-serif);
   font-weight: 900;
-  letter-spacing: -0.08em;
-  line-height: 0.78;
+  letter-spacing: -0.085em;
+  line-height: 0.76;
   color: var(--color-terra);
-  opacity: 0.75;
-  font-size: clamp(120px, 17vw, 260px);
+  opacity: 0.72;
+  font-size: clamp(140px, 19.5vw, 320px);
   font-feature-settings: "tnum";
   user-select: none;
 }

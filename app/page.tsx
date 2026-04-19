@@ -14,6 +14,11 @@ const HERO_IMAGE =
   "https://images.unsplash.com/photo-1525268323446-0505b6fe7778?w=1800&q=85&auto=format&fit=crop";
 const HERO_ALT = "Poblacion at night — the Makati nightlife spine, Metro Manila";
 
+// Masthead — bumps monthly, published the first Thursday.
+// TODO: move to a CMS / DB field once editorial workflow is wired.
+const ISSUE_NUMBER = "016";
+const ISSUE_DATE = "Apr 20, 2026";
+
 const COLLECTION_COVER: Record<string, string> = {
   "rooftop-bars-manila":
     "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=1400&q=80",
@@ -110,6 +115,16 @@ export default async function HomePage() {
             }}
           />
         </div>
+        {/* Issue number — editorial corner detail */}
+        <div className="absolute top-5 right-6 sm:right-10 z-10 hidden sm:block">
+          <div className="font-mono text-[10px] sm:text-[11px] tracking-[0.18em] uppercase text-white/70 text-right">
+            <div>
+              Issue <span className="text-saffron font-semibold">{ISSUE_NUMBER}</span>
+            </div>
+            <div className="text-white/50 mt-0.5">{ISSUE_DATE}</div>
+          </div>
+        </div>
+
         <div className="relative z-10 h-full max-w-screen-2xl mx-auto px-6 sm:px-10 pb-16 sm:pb-20 lg:pb-24 flex flex-col justify-end">
           <div className="max-w-[680px] lg:max-w-[62%]">
             <div className="text-[10px] sm:text-[11px] font-extrabold tracking-[0.22em] uppercase text-saffron">
@@ -260,16 +275,20 @@ function NumberedSection({
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} className="relative scroll-mt-16 py-[72px] sm:py-[88px]">
+    <section
+      id={id}
+      className="relative scroll-mt-16 py-[72px] sm:py-[88px] overflow-hidden"
+    >
       <div className="max-w-screen-2xl mx-auto px-6 sm:px-8 lg:px-10">
         <div className="relative">
-          {/* Numeral — layered behind, slightly off-axis for intentional imperfection */}
+          {/* Numeral — layered behind, bleeds off the left edge on desktop
+              so content can genuinely overlap its right-hand curves */}
           <div
             aria-hidden
             className="numeral absolute select-none pointer-events-none"
             style={{
-              top: "-0.12em",
-              left: "-0.045em",
+              top: "-0.14em",
+              left: "clamp(-72px, -4.5vw, -20px)",
               zIndex: 0,
             }}
           >
@@ -277,7 +296,7 @@ function NumberedSection({
           </div>
 
           {/* Content — overlaps the numeral's right edge on desktop */}
-          <div className="relative z-10 pt-[88px] sm:pt-[120px] lg:pt-4 lg:pl-[172px] xl:pl-[200px]">
+          <div className="relative z-10 pt-[108px] sm:pt-[152px] lg:pt-6 lg:pl-[160px] xl:pl-[200px]">
             <div className="text-[11px] font-extrabold tracking-[0.22em] uppercase text-terra">
               {eyebrow}
             </div>
