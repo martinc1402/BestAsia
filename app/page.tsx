@@ -5,7 +5,6 @@ import {
   getDiscoverVenues,
   getTopVenues,
 } from "@/lib/queries";
-import { getPriceSymbol } from "@/lib/utils";
 import type { VenueWithTags } from "@/lib/types";
 import TonightTicker from "@/components/TonightTicker";
 
@@ -144,7 +143,7 @@ export default async function HomePage() {
               </Link>
               <Link
                 href="/manila"
-                className="inline-flex items-center gap-1.5 text-white/85 text-[13.5px] sm:text-[14px] font-extrabold tracking-[0.02em] hover:text-saffron transition-colors underline-offset-[6px] decoration-2 hover:underline"
+                className="inline-flex items-center gap-1.5 text-white/85 text-[13.5px] sm:text-[14px] font-extrabold tracking-[0.02em] hover:text-coral transition-colors underline-offset-[6px] decoration-2 hover:underline"
               >
                 or start in Manila
                 <span className="text-[16px] leading-none">→</span>
@@ -164,7 +163,7 @@ export default async function HomePage() {
         action={{ href: "/discover?open=1", label: "Every place open now →" }}
       >
         <FeaturedGrid>
-          <TallHeroCard venue={tonight[0]} />
+          <TallHeroCard venue={tonight[0]} pickLabel="Tonight's pick" />
           <StackedSupporting>
             {tonight[1] && <WideCard venue={tonight[1]} />}
             {tonight[2] && <WideCard venue={tonight[2]} />}
@@ -177,11 +176,11 @@ export default async function HomePage() {
         numeral="02"
         eyebrow="This week"
         title="The editors picked these."
-        pullquote="Three spots we'd send our best friend to — tonight, tomorrow, Saturday."
-        action={{ href: "/discover", label: "Read every pick →" }}
+        pullquote="Three places worth leaving the house for. Tonight, tomorrow, Saturday. No filler, no favors."
+        action={{ href: "/discover", label: "Every pick, fully argued →" }}
       >
         <FeaturedGrid>
-          <TallHeroCard venue={editorPicks[0]} />
+          <TallHeroCard venue={editorPicks[0]} pickLabel="Editor's pick" />
           <StackedSupporting>
             {editorPicks[1] && <WideCard venue={editorPicks[1]} />}
             {editorPicks[2] && <WideCard venue={editorPicks[2]} />}
@@ -208,8 +207,8 @@ export default async function HomePage() {
 
       {/* NEWSLETTER */}
       <section className="px-4 sm:px-8 lg:px-10 pb-[88px] sm:pb-[104px] pt-6 sm:pt-10">
-        <div className="max-w-screen-2xl mx-auto rounded-[12px] bg-ink text-white p-8 sm:p-12 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
-          <div className="max-w-[540px]">
+        <div className="paper-grain max-w-screen-2xl mx-auto rounded-[12px] bg-volcanic text-white p-8 sm:p-12 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+          <div className="max-w-[540px] relative z-[1]">
             <div className="text-[10px] font-extrabold tracking-[0.22em] uppercase text-saffron mb-3">
               Monday briefing
             </div>
@@ -221,16 +220,16 @@ export default async function HomePage() {
               Monday morning, over your first coffee. No filler. Unsubscribe anytime.
             </p>
           </div>
-          <form className="flex gap-2 flex-1 lg:max-w-[440px]">
+          <form className="flex gap-2 flex-1 lg:max-w-[440px] relative z-[1]">
             <input
               type="email"
               required
               placeholder="you@company.com"
-              className="flex-1 px-5 py-[18px] rounded-[8px] border border-white/20 bg-white/10 text-white placeholder:text-white/45 text-[14.5px] outline-none focus:border-saffron/70 transition-colors"
+              className="flex-1 px-5 py-[18px] rounded-[8px] border border-white/20 bg-white/10 text-white placeholder:text-white/45 text-[14.5px] outline-none focus:border-saffron transition-colors"
             />
             <button
               type="submit"
-              className="px-6 rounded-[8px] bg-saffron text-ink text-[13.5px] font-extrabold tracking-[0.02em] hover:brightness-95 transition"
+              className="px-6 rounded-[8px] bg-saffron text-volcanic text-[13.5px] font-extrabold tracking-[0.02em] hover:bg-coral hover:text-white transition-colors duration-200"
             >
               Subscribe
             </button>
@@ -286,8 +285,8 @@ function NumberedSection({
               {title}
             </h2>
             {pullquote && (
-              <p className="mt-5 sm:mt-6 font-[family-name:var(--font-noto-serif)] italic font-medium text-ink text-[17px] sm:text-[20px] lg:text-[22px] leading-[1.32] max-w-[680px]">
-                &ldquo;{pullquote}&rdquo;
+              <p className="mt-5 sm:mt-6 font-[family-name:var(--font-noto-serif)] italic font-medium text-ink text-[17px] sm:text-[20px] lg:text-[22px] leading-[1.32] max-w-[680px] pl-4 border-l-2 border-teal">
+                {pullquote}
               </p>
             )}
             <div className="mt-7 sm:mt-8">{children}</div>
@@ -295,7 +294,7 @@ function NumberedSection({
               <div className="mt-7 sm:mt-8">
                 <Link
                   href={action.href}
-                  className="inline-flex items-center gap-1.5 text-terra font-extrabold text-[13.5px] tracking-[0.02em] hover:underline underline-offset-[6px] decoration-2"
+                  className="inline-flex items-center gap-1.5 text-terra font-extrabold text-[13.5px] tracking-[0.02em] hover:text-coral transition-colors underline-offset-[6px] decoration-2 hover:underline"
                 >
                   {action.label}
                 </Link>
@@ -339,8 +338,15 @@ function StackedSupporting({ children }: { children: React.ReactNode }) {
 
 // ─── Venue cards ─────────────────────────────────────────────────────
 
-function TallHeroCard({ venue }: { venue?: VenueWithTags }) {
+function TallHeroCard({
+  venue,
+  pickLabel = "Editor's pick",
+}: {
+  venue?: VenueWithTags;
+  pickLabel?: string;
+}) {
   if (!venue) return null;
+  const score = venue.best_score != null ? Math.round(venue.best_score) : null;
   return (
     <Link
       href={`/venue/${venue.slug}`}
@@ -365,18 +371,29 @@ function TallHeroCard({ venue }: { venue?: VenueWithTags }) {
             "linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.92) 100%)",
         }}
       />
-      {venue.best_score != null && (
-        <div className="absolute top-5 left-5 px-2.5 py-1.5 rounded-[8px] bg-white/95 backdrop-blur-sm inline-flex items-center gap-2">
-          <span className="font-[family-name:var(--font-noto-serif)] text-[22px] font-black text-terra leading-none">
-            {Math.round(venue.best_score)}
+
+      {/* Editor's pick — top-left */}
+      <span className="absolute top-5 left-5 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] bg-saffron text-volcanic text-[10px] font-black tracking-[0.22em] uppercase shadow-sm">
+        <Sparkle /> {pickLabel}
+      </span>
+
+      {/* Best Score — top-right, large, treated like the product it is */}
+      {score != null && (
+        <div className="absolute top-3 right-4 sm:top-4 sm:right-6 flex flex-col items-end select-none">
+          <span
+            className="font-[family-name:var(--font-noto-serif)] font-black text-saffron leading-[0.8] tracking-[-0.045em] text-[72px] sm:text-[96px] lg:text-[112px]"
+            style={{
+              textShadow: "0 4px 18px rgba(0,0,0,0.45)",
+            }}
+          >
+            {score}
           </span>
-          <span className="text-[8.5px] font-extrabold tracking-[0.18em] uppercase text-outline leading-tight">
-            Best
-            <br />
-            Score
+          <span className="text-[9px] sm:text-[10px] font-extrabold tracking-[0.3em] uppercase text-white/80 -mt-1">
+            Best Score · 100
           </span>
         </div>
       )}
+
       <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 lg:p-10">
         <div className="text-[10px] sm:text-[11px] font-extrabold tracking-[0.22em] uppercase text-white/80">
           {cuisine(venue)}
@@ -395,7 +412,19 @@ function TallHeroCard({ venue }: { venue?: VenueWithTags }) {
   );
 }
 
+function Sparkle() {
+  return (
+    <svg width="10" height="10" viewBox="0 0 24 24" aria-hidden>
+      <path
+        d="M12 2l2.2 7.4L22 12l-7.8 2.6L12 22l-2.2-7.4L2 12l7.8-2.6L12 2z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
 function WideCard({ venue }: { venue: VenueWithTags }) {
+  const score = venue.best_score != null ? Math.round(venue.best_score) : null;
   return (
     <Link
       href={`/venue/${venue.slug}`}
@@ -412,10 +441,16 @@ function WideCard({ venue }: { venue: VenueWithTags }) {
               sizes="(max-width: 1024px) 180px, 360px"
             />
           )}
-          {venue.best_score != null && (
-            <span className="absolute top-2 left-2 px-1.5 py-0.5 rounded-[5px] bg-terra text-white text-[11px] font-black shadow-sm">
-              {Math.round(venue.best_score)}
-            </span>
+          {/* Larger, more prominent score in the corner */}
+          {score != null && (
+            <div className="absolute top-2 left-2 flex flex-col items-start leading-none">
+              <span className="font-[family-name:var(--font-noto-serif)] text-saffron font-black text-[34px] leading-[0.78] tracking-[-0.04em] drop-shadow-[0_2px_6px_rgba(0,0,0,0.55)]">
+                {score}
+              </span>
+              <span className="text-[7.5px] font-extrabold tracking-[0.22em] uppercase text-white/85 mt-0.5 drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)]">
+                Best Score
+              </span>
+            </div>
           )}
         </div>
         <div className="p-4 lg:p-4 flex flex-col justify-center">
@@ -435,15 +470,39 @@ function WideCard({ venue }: { venue: VenueWithTags }) {
             {venue.price_level && (
               <>
                 <span className="text-outline-variant">·</span>
-                <span className="font-semibold">
-                  {getPriceSymbol(venue.price_level)}
-                </span>
+                <PriceDots level={venue.price_level} />
               </>
             )}
           </div>
         </div>
       </div>
     </Link>
+  );
+}
+
+function PriceDots({ level }: { level: number }) {
+  const labels: Record<number, string> = {
+    1: "Budget (under ₱500 per head)",
+    2: "Moderate (₱500–₱1,500 per head)",
+    3: "Upscale (₱1,500–₱3,000 per head)",
+    4: "Splurge (₱3,000+ per head)",
+  };
+  return (
+    <span
+      className="inline-flex items-baseline font-semibold"
+      title={labels[level] ?? "Price tier"}
+      aria-label={labels[level] ?? "Price tier"}
+      style={{ letterSpacing: "-0.05em" }}
+    >
+      {[1, 2, 3, 4].map((i) => (
+        <span
+          key={i}
+          className={i <= level ? "text-ink" : "text-outline-variant"}
+        >
+          ₱
+        </span>
+      ))}
+    </span>
   );
 }
 
@@ -475,14 +534,26 @@ function ListHeroCard({
             "linear-gradient(180deg, transparent 38%, rgba(0,0,0,0.94) 100%)",
         }}
       />
-      <span className="absolute top-5 right-5 px-3 py-1.5 rounded-full bg-saffron text-ink text-[10.5px] font-black tracking-[0.2em] uppercase">
-        Top {list.venue_count}
+
+      <span className="absolute top-5 left-5 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] bg-saffron text-volcanic text-[10px] font-black tracking-[0.22em] uppercase shadow-sm">
+        <Sparkle /> This month&apos;s argument
       </span>
+
+      {/* Large TOP N — treated like a score */}
+      <div className="absolute top-3 right-4 sm:top-4 sm:right-6 flex flex-col items-end select-none">
+        <span
+          className="font-[family-name:var(--font-noto-serif)] font-black text-saffron leading-[0.8] tracking-[-0.045em] text-[72px] sm:text-[96px] lg:text-[112px]"
+          style={{ textShadow: "0 4px 18px rgba(0,0,0,0.45)" }}
+        >
+          {list.venue_count}
+        </span>
+        <span className="text-[9px] sm:text-[10px] font-extrabold tracking-[0.3em] uppercase text-white/80 -mt-1">
+          The Canon · Top {list.venue_count}
+        </span>
+      </div>
+
       <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 lg:p-10">
-        <div className="text-[10px] sm:text-[11px] font-extrabold tracking-[0.22em] uppercase text-white/80">
-          This month&apos;s argument
-        </div>
-        <h3 className="mt-2.5 font-[family-name:var(--font-noto-serif)] text-white font-black tracking-[-0.03em] leading-[0.92] text-[34px] sm:text-[48px] lg:text-[60px]">
+        <h3 className="font-[family-name:var(--font-noto-serif)] text-white font-black tracking-[-0.03em] leading-[0.92] text-[34px] sm:text-[48px] lg:text-[60px]">
           {list.title}
         </h3>
         {list.description && (

@@ -12,9 +12,12 @@ const ITEMS = [
   "Cebu · Boracay · Siargao — coming 2026",
 ];
 
+// Stub values — replace with a weather API + last-updated timestamp on the venue feed.
+const TEMP_C = 29;
+const UPDATED_MINUTES_AGO = 8;
+
 export default function TonightTicker() {
   const [clock, setClock] = useState<string | null>(null);
-  const [weekday, setWeekday] = useState<string | null>(null);
 
   useEffect(() => {
     const tick = () => {
@@ -24,11 +27,6 @@ export default function TonightTicker() {
       const ampm = h >= 12 ? "PM" : "AM";
       const hh = h % 12 || 12;
       setClock(`${hh}:${m} ${ampm}`);
-      setWeekday(
-        now
-          .toLocaleString("en-US", { weekday: "long" })
-          .toUpperCase(),
-      );
     };
     tick();
     const t = setInterval(tick, 30_000);
@@ -39,31 +37,36 @@ export default function TonightTicker() {
 
   return (
     <div
-      className="relative z-[5] bg-ink text-white border-b border-white/10"
+      className="relative z-[5] bg-volcanic text-white border-b border-white/10"
       style={{ isolation: "isolate" }}
     >
-      <div className="max-w-screen-2xl mx-auto h-10 flex items-center gap-4 px-4 sm:px-8 lg:px-10 text-[11.5px] font-semibold overflow-hidden">
-        <span className="shrink-0 flex items-center gap-2">
+      <div className="max-w-screen-2xl mx-auto h-10 flex items-center gap-4 px-4 sm:px-8 lg:px-10 text-[11.5px] overflow-hidden">
+        {/* Live status strip — monospace, understated */}
+        <span className="shrink-0 flex items-center gap-2 font-mono text-[11px] tracking-[0.02em]">
           <span
             aria-hidden
             className="w-1.5 h-1.5 rounded-full bg-saffron animate-pulse"
           />
-          <span className="uppercase tracking-[0.22em] text-saffron">Live</span>
-          {weekday && clock && (
-            <span className="hidden sm:inline text-white/60 tracking-[0.08em]">
-              · {weekday} · {clock}
-            </span>
+          <span className="text-saffron uppercase tracking-[0.18em] font-semibold">
+            Manila
+          </span>
+          {clock && (
+            <span className="hidden sm:inline text-white/60">· {clock}</span>
           )}
+          <span className="hidden md:inline text-white/55">· {TEMP_C}°C</span>
+          <span className="hidden lg:inline text-white/45">
+            · updated {UPDATED_MINUTES_AGO} min ago
+          </span>
         </span>
         <div className="flex-1 min-w-0 overflow-hidden">
-          <div className="whitespace-nowrap animate-ticker text-white/85 tracking-[0.02em]">
+          <div className="whitespace-nowrap animate-ticker text-white/80 tracking-[0.02em] font-semibold">
             <span>{line}</span>
             <span className="ml-12">{line}</span>
           </div>
         </div>
         <a
           href="#tonight"
-          className="shrink-0 text-saffron font-extrabold tracking-[0.08em] hover:opacity-80 transition"
+          className="shrink-0 text-saffron font-extrabold tracking-[0.08em] hover:text-coral transition-colors"
         >
           Tonight →
         </a>

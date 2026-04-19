@@ -8,12 +8,16 @@
   --color-terra-text: #521800;
   --color-ink: #1B1C1C;
   --color-ink-soft: #303030;
-  --color-saffron: #FABD00;
+  --color-volcanic: #0E0D0B;           /* deeper than ink — for the newsletter slab */
+  --color-saffron: #FABD00;            /* calamansi yellow — use more of this */
   --color-gold: #785900;
   --color-gold-fixed: #FFDF9E;
   --color-on-gold-fixed: #261A00;
-  --color-teal: #006972;
+  --color-teal: #1E5A6C;               /* deep sea teal — secondary accent */
+  --color-teal-soft: #8FC5D0;
   --color-teal-container: #8FEEFC;
+  --color-coral: #F27557;              /* sunset coral — hover/active states */
+  --color-coral-soft: #FFD4C8;
   --color-cream: #FCF9F8;
   --color-bone: #FCF9F8;
   --color-moss: #5B4137;
@@ -41,7 +45,11 @@
   --color-gold-fixed: var(--color-gold-fixed);
   --color-on-gold-fixed: var(--color-on-gold-fixed);
   --color-teal: var(--color-teal);
+  --color-teal-soft: var(--color-teal-soft);
   --color-teal-container: var(--color-teal-container);
+  --color-coral: var(--color-coral);
+  --color-coral-soft: var(--color-coral-soft);
+  --color-volcanic: var(--color-volcanic);
   --color-cream: var(--color-cream);
   --color-bone: var(--color-bone);
   --color-moss: var(--color-moss);
@@ -112,6 +120,22 @@ body {
     opacity: 0.35;
     mix-blend-mode: overlay;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+}
+
+/* Subtler paper wash for editorial surfaces — 5-8% opacity, no blend mode. */
+@utility paper-grain {
+  position: relative;
+  isolation: isolate;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.065;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 320'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch' seed='7'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.08 0 0 0 0 0.06 0 0 0 0.9 0'/></filter><rect width='100%25' height='100%25' filter='url(%23p)'/></svg>");
   }
 }
 
