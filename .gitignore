@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local tooling artefacts (not part of the app source)
+.playwright-mcp/
+/*.zip
+/*-redesign*.png
+/*-prototype*.png
+/*-with-filters*.png
