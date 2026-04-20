@@ -511,27 +511,51 @@ function WideCard({ venue }: { venue: VenueWithTags }) {
 }
 
 function PriceDots({ level }: { level: number }) {
-  const labels: Record<number, string> = {
-    1: "Budget (under ₱500 per head)",
-    2: "Moderate (₱500–₱1,500 per head)",
-    3: "Upscale (₱1,500–₱3,000 per head)",
-    4: "Splurge (₱3,000+ per head)",
+  const tier: Record<number, string> = {
+    1: "Budget",
+    2: "Moderate",
+    3: "Upscale",
+    4: "Splurge",
   };
+  const range: Record<number, string> = {
+    1: "under ₱500 per head",
+    2: "₱500–₱1,500 per head",
+    3: "₱1,500–₱3,000 per head",
+    4: "₱3,000+ per head",
+  };
+  const tooltip = `${tier[level]}: ${range[level]}`;
+  // Force a font stack that guarantees the peso glyph (U+20B1) renders
+  // as the peso sign rather than being substituted by a font that maps
+  // the codepoint oddly. Plus Jakarta Sans supports it, but we fall
+  // back to system fonts that also support it reliably.
+  const pesoFont =
+    "'Plus Jakarta Sans', 'SF Pro Text', 'Helvetica Neue', system-ui, sans-serif";
   return (
     <span
-      className="inline-flex items-baseline font-semibold"
-      title={labels[level] ?? "Price tier"}
-      aria-label={labels[level] ?? "Price tier"}
-      style={{ letterSpacing: "-0.05em" }}
+      className="inline-flex items-baseline gap-1.5 font-semibold"
+      title={tooltip}
+      aria-label={tooltip}
     >
-      {[1, 2, 3, 4].map((i) => (
-        <span
-          key={i}
-          className={i <= level ? "text-ink" : "text-outline-variant"}
-        >
-          ₱
-        </span>
-      ))}
+      <span
+        className="inline-flex"
+        style={{
+          letterSpacing: "0.04em",
+          fontFamily: pesoFont,
+          fontFeatureSettings: '"tnum"',
+        }}
+      >
+        {[1, 2, 3, 4].map((i) => (
+          <span
+            key={i}
+            className={i <= level ? "text-ink" : "text-outline-variant"}
+          >
+            ₱
+          </span>
+        ))}
+      </span>
+      <span className="text-[9.5px] font-extrabold tracking-[0.22em] uppercase text-outline">
+        {tier[level]}
+      </span>
     </span>
   );
 }
@@ -569,7 +593,7 @@ function ListHeroCard({
         <Sparkle /> This month&apos;s argument
       </span>
 
-      {/* Large TOP N — treated like a score */}
+      {/* Large count — now unambiguously labelled as "places on the list" */}
       <div className="absolute top-3 right-4 sm:top-4 sm:right-6 flex flex-col items-end select-none">
         <span
           className="font-[family-name:var(--font-noto-serif)] font-black text-saffron leading-[0.8] tracking-[-0.045em] text-[72px] sm:text-[96px] lg:text-[112px]"
@@ -578,7 +602,7 @@ function ListHeroCard({
           {list.venue_count}
         </span>
         <span className="text-[9px] sm:text-[10px] font-extrabold tracking-[0.3em] uppercase text-white/80 -mt-1">
-          The Canon · Top {list.venue_count}
+          Places on the list
         </span>
       </div>
 

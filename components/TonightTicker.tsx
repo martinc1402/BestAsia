@@ -40,8 +40,8 @@ export default function TonightTicker() {
       className="relative z-[5] bg-volcanic text-white border-b border-white/10"
       style={{ isolation: "isolate" }}
     >
-      <div className="max-w-screen-2xl mx-auto h-10 flex items-center gap-4 px-4 sm:px-8 lg:px-10 text-[11.5px] overflow-hidden">
-        {/* Live status strip — monospace, understated */}
+      <div className="max-w-screen-2xl mx-auto h-10 flex items-center gap-3 sm:gap-4 px-4 sm:px-8 lg:px-10 text-[11.5px] overflow-hidden">
+        {/* Live status strip — monospace, understated, now actually visible */}
         <span className="shrink-0 flex items-center gap-2 font-mono text-[11px] tracking-[0.02em]">
           <span
             aria-hidden
@@ -51,19 +51,29 @@ export default function TonightTicker() {
             Manila
           </span>
           {clock && (
-            <span className="hidden sm:inline text-white/60">· {clock}</span>
+            <span className="text-white/60">· {clock}</span>
           )}
-          <span className="hidden md:inline text-white/55">· {TEMP_C}°C</span>
-          <span className="hidden lg:inline text-white/45">
+          <span className="hidden sm:inline text-white/55">· {TEMP_C}°C</span>
+          <span className="hidden md:inline text-white/45">
             · updated {UPDATED_MINUTES_AGO} min ago
           </span>
         </span>
+        {/* Divider between status and crawl */}
+        <span
+          aria-hidden
+          className="hidden sm:block shrink-0 w-px h-4 bg-white/15"
+        />
         <div className="flex-1 min-w-0 overflow-hidden">
           <div className="whitespace-nowrap animate-ticker text-white/80 tracking-[0.02em] font-semibold">
             <span>{line}</span>
             <span className="ml-12">{line}</span>
           </div>
         </div>
+        {/* Divider between crawl and Tonight link */}
+        <span
+          aria-hidden
+          className="hidden sm:block shrink-0 w-px h-4 bg-white/15"
+        />
         <a
           href="#tonight"
           className="shrink-0 text-saffron font-extrabold tracking-[0.08em] hover:text-coral transition-colors"
