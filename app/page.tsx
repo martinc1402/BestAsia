@@ -96,8 +96,9 @@ export default async function HomePage() {
     <div className="bg-bone font-[family-name:var(--font-plus-jakarta)] text-ink">
       <TonightTicker />
 
-      {/* HERO */}
-      <section className="relative h-[540px] sm:h-[620px] lg:h-[720px]">
+      {/* HERO — min-h + padding-top (NOT fixed height + flex-end) so headline
+          overflow can never push content UP past the section top into the ticker. */}
+      <section className="relative min-h-[580px] sm:min-h-[660px] lg:min-h-[760px] overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
           <Image
             src={HERO_IMAGE}
@@ -125,10 +126,10 @@ export default async function HomePage() {
           </div>
         </div>
 
-        <div className="relative z-10 h-full max-w-screen-2xl mx-auto px-6 sm:px-10 pb-16 sm:pb-20 lg:pb-24 flex flex-col justify-end">
+        <div className="relative z-10 max-w-screen-2xl mx-auto px-6 sm:px-10 pt-44 sm:pt-56 lg:pt-72 pb-16 sm:pb-20 lg:pb-24">
           <div className="max-w-[680px] lg:max-w-[62%]">
             <div className="text-[10px] sm:text-[11px] font-extrabold tracking-[0.22em] uppercase text-saffron">
-              The Philippines · we argued about every one
+              The Philippines · we argue about every place
             </div>
             <h1 className="mt-4 font-[family-name:var(--font-noto-serif)] text-white font-black tracking-[-0.045em] leading-[0.9] text-[44px] sm:text-[76px] lg:text-[104px]">
               Where the Philippines{" "}
