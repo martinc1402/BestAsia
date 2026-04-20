@@ -9,15 +9,14 @@ import type { VenueWithTags } from "@/lib/types";
 import TonightTicker from "@/components/TonightTicker";
 
 // Unsplash License (free for commercial use, attribution optional).
-// Shot: rooftop cocktail bar overlooking the Makati skyline at night —
-// distinctively Philippine context (the rail, the skyline), nocturnal
-// register. Also used as the cover for the "Rooftop bars in Manila"
-// collection; reuse is intentional (visual through-line between home
-// and that list).
+// Shot: Makati/BGC skyline at dusk — the recognizable high-rise spine
+// that reads as Manila at a glance (the prior bar/bottles shots were
+// location-agnostic). Iterate toward a licensed street-level Poblacion
+// or jeepney shot when the photo library is ready.
 const HERO_IMAGE =
-  "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=1800&q=85&auto=format&fit=crop";
+  "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=1800&q=85&auto=format&fit=crop";
 const HERO_ALT =
-  "Rooftop bar rail against the Makati skyline at night — Metro Manila, Philippines";
+  "Makati skyline at dusk — the financial capital, Metro Manila, Philippines";
 
 // Masthead — bumps monthly, published the first Thursday.
 // TODO: move to a CMS / DB field once editorial workflow is wired.
@@ -169,7 +168,7 @@ export default async function HomePage() {
               </Link>
               <Link
                 href="/manila"
-                className="inline-flex items-center gap-1.5 text-white/85 text-[13.5px] sm:text-[14px] font-extrabold tracking-[0.02em] hover:text-coral transition-colors underline-offset-[6px] decoration-2 hover:underline"
+                className="inline-flex items-center gap-1.5 text-coral text-[13.5px] sm:text-[14px] font-extrabold tracking-[0.02em] hover:text-saffron transition-colors underline-offset-[6px] decoration-2 hover:underline"
               >
                 or start in Manila
                 <span className="text-[16px] leading-none">→</span>
@@ -201,6 +200,7 @@ export default async function HomePage() {
       <NumberedSection
         numeral="02"
         eyebrow="This week"
+        eyebrowTone="teal"
         title="The editors picked these."
         pullquote="Three places worth leaving the house for. Tonight, tomorrow, Saturday. No filler, no favors."
         action={{ href: "/discover", label: "Every pick, fully argued →" }}
@@ -272,6 +272,7 @@ function NumberedSection({
   id,
   numeral,
   eyebrow,
+  eyebrowTone = "terra",
   title,
   pullquote,
   action,
@@ -280,15 +281,26 @@ function NumberedSection({
   id?: string;
   numeral: string;
   eyebrow: React.ReactNode;
+  eyebrowTone?: "terra" | "teal" | "coral";
   title: string;
   pullquote?: string;
   action?: { href: string; label: string };
   children: React.ReactNode;
 }) {
+  const eyebrowColor =
+    eyebrowTone === "teal"
+      ? "text-teal"
+      : eyebrowTone === "coral"
+        ? "text-coral"
+        : "text-terra";
+  const actionColor =
+    eyebrowTone === "teal"
+      ? "text-teal hover:text-coral"
+      : "text-terra hover:text-coral";
   return (
     <section
       id={id}
-      className="relative scroll-mt-16 py-[72px] sm:py-[88px] overflow-hidden border-t border-teal/15"
+      className="paper-grain relative scroll-mt-16 py-[72px] sm:py-[88px] overflow-hidden border-t border-teal/35"
     >
       <div className="max-w-screen-2xl mx-auto px-6 sm:px-8 lg:px-10">
         <div className="relative">
@@ -308,7 +320,7 @@ function NumberedSection({
 
           {/* Content — overlaps the numeral's right edge on desktop */}
           <div className="relative z-10 pt-[108px] sm:pt-[152px] lg:pt-6 lg:pl-[160px] xl:pl-[200px]">
-            <div className="text-[11px] font-extrabold tracking-[0.22em] uppercase text-terra">
+            <div className={`text-[11px] font-extrabold tracking-[0.22em] uppercase ${eyebrowColor}`}>
               {eyebrow}
             </div>
             <h2 className="mt-3 font-[family-name:var(--font-noto-serif)] text-ink font-black tracking-[-0.035em] leading-[0.92] text-[38px] sm:text-[52px] lg:text-[60px]">
@@ -324,7 +336,7 @@ function NumberedSection({
               <div className="mt-7 sm:mt-8">
                 <Link
                   href={action.href}
-                  className="inline-flex items-center gap-1.5 text-terra font-extrabold text-[13.5px] tracking-[0.02em] hover:text-coral transition-colors underline-offset-[6px] decoration-2 hover:underline"
+                  className={`inline-flex items-center gap-1.5 font-extrabold text-[13.5px] tracking-[0.02em] transition-colors underline-offset-[6px] decoration-2 hover:underline ${actionColor}`}
                 >
                   {action.label}
                 </Link>
@@ -593,16 +605,15 @@ function ListHeroCard({
         <Sparkle /> This month&apos;s argument
       </span>
 
-      {/* Large count — now unambiguously labelled as "places on the list" */}
-      <div className="absolute top-3 right-4 sm:top-4 sm:right-6 flex flex-col items-end select-none">
-        <span
-          className="font-[family-name:var(--font-noto-serif)] font-black text-saffron leading-[0.8] tracking-[-0.045em] text-[72px] sm:text-[96px] lg:text-[112px]"
-          style={{ textShadow: "0 4px 18px rgba(0,0,0,0.45)" }}
-        >
-          {list.venue_count}
+      {/* Editorial metadata — no ambiguous big numeral. A big saffron "N"
+          borrowed from the venue-card score treatment read as a rank when
+          the list's title claimed "Top 10". Replaced with a dateline. */}
+      <div className="absolute top-5 right-5 flex flex-col items-end select-none text-right font-mono">
+        <span className="text-[10px] sm:text-[11px] font-semibold tracking-[0.18em] uppercase text-saffron">
+          This month
         </span>
-        <span className="text-[9px] sm:text-[10px] font-extrabold tracking-[0.3em] uppercase text-white/80 -mt-1">
-          Places on the list
+        <span className="mt-0.5 text-[10px] sm:text-[11px] tracking-[0.12em] uppercase text-white/70">
+          {list.venue_count} {list.venue_count === 1 ? "place" : "places"}
         </span>
       </div>
 
