@@ -9,10 +9,15 @@ import type { VenueWithTags } from "@/lib/types";
 import TonightTicker from "@/components/TonightTicker";
 
 // Unsplash License (free for commercial use, attribution optional).
-// Shot: nighttime Poblacion / Makati bar scene — matches "stays out late".
+// Shot: rooftop cocktail bar overlooking the Makati skyline at night —
+// distinctively Philippine context (the rail, the skyline), nocturnal
+// register. Also used as the cover for the "Rooftop bars in Manila"
+// collection; reuse is intentional (visual through-line between home
+// and that list).
 const HERO_IMAGE =
-  "https://images.unsplash.com/photo-1525268323446-0505b6fe7778?w=1800&q=85&auto=format&fit=crop";
-const HERO_ALT = "Poblacion at night — the Makati nightlife spine, Metro Manila";
+  "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=1800&q=85&auto=format&fit=crop";
+const HERO_ALT =
+  "Rooftop bar rail against the Makati skyline at night — Metro Manila, Philippines";
 
 // Masthead — bumps monthly, published the first Thursday.
 // TODO: move to a CMS / DB field once editorial workflow is wired.
@@ -93,7 +98,7 @@ export default async function HomePage() {
           .slice(0, 3);
 
   return (
-    <div className="bg-bone font-[family-name:var(--font-plus-jakarta)] text-ink">
+    <div className="paper-grain bg-bone font-[family-name:var(--font-plus-jakarta)] text-ink">
       <TonightTicker />
 
       {/* HERO — min-h + padding-top (NOT fixed height + flex-end) so headline
@@ -131,16 +136,21 @@ export default async function HomePage() {
             <div className="text-[10px] sm:text-[11px] font-extrabold tracking-[0.22em] uppercase text-saffron">
               The Philippines · we argue about every place
             </div>
-            <h1 className="mt-4 font-[family-name:var(--font-noto-serif)] text-white font-black tracking-[-0.045em] leading-[0.9] text-[44px] sm:text-[76px] lg:text-[104px]">
+            <h1 className="mt-4 font-[family-name:var(--font-noto-serif)] text-white font-black tracking-[-0.045em] leading-[0.9] text-[44px] sm:text-[80px] lg:text-[112px]">
               Where the Philippines{" "}
-              <span className="italic text-saffron">eats, drinks</span>,
+              <span className="italic text-saffron">drinks</span>
               <br className="hidden sm:block" />
               <span className="sm:hidden"> </span>
               and stays out late.
             </h1>
             <p className="mt-5 sm:mt-6 text-white/80 text-[14px] sm:text-[15px] leading-[1.5] max-w-[540px]">
               <span className="text-white font-semibold">Manila, live today.</span>{" "}
-              <span className="text-white/65">Cebu, Boracay, Siargao — coming 2026.</span>
+              <span className="text-white/65">
+                <span className="text-teal-soft font-semibold">Cebu</span>,{" "}
+                <span className="text-teal-soft font-semibold">Boracay</span>,{" "}
+                <span className="text-teal-soft font-semibold">Siargao</span> —
+                coming 2026.
+              </span>
             </p>
             <div className="mt-7 sm:mt-9 flex flex-wrap items-center gap-4 sm:gap-5">
               <Link
@@ -278,7 +288,7 @@ function NumberedSection({
   return (
     <section
       id={id}
-      className="relative scroll-mt-16 py-[72px] sm:py-[88px] overflow-hidden"
+      className="relative scroll-mt-16 py-[72px] sm:py-[88px] overflow-hidden border-t border-teal/15"
     >
       <div className="max-w-screen-2xl mx-auto px-6 sm:px-8 lg:px-10">
         <div className="relative">
