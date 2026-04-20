@@ -98,7 +98,7 @@ export default async function HomePage() {
           .slice(0, 3);
 
   return (
-    <div className="paper-grain bg-bone font-[family-name:var(--font-plus-jakarta)] text-ink">
+    <div className="bg-bone font-[family-name:var(--font-plus-jakarta)] text-ink">
       <TonightTicker />
 
       {/* HERO — min-h + padding-top (NOT fixed height + flex-end) so headline

@@ -123,7 +123,11 @@ body {
   }
 }
 
-/* Subtler paper wash for editorial surfaces — 5-8% opacity, no blend mode. */
+/* Subtler paper wash for editorial surfaces — 5-8% opacity, no blend mode.
+   z-index: -1 on the pseudo keeps the wash BEHIND any child content, so
+   applying this utility can't cover images or text. `isolation: isolate`
+   ensures the negative z-index stays scoped to this element and doesn't
+   escape into the parent's stacking context. */
 @utility paper-grain {
   position: relative;
   isolation: isolate;
@@ -133,8 +137,8 @@ body {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    z-index: 0;
-    opacity: 0.065;
+    z-index: -1;
+    opacity: 0.08;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 320'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch' seed='7'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.08 0 0 0 0 0.06 0 0 0 0.9 0'/></filter><rect width='100%25' height='100%25' filter='url(%23p)'/></svg>");
   }
 }
