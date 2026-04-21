@@ -26,7 +26,7 @@ export default function Footer() {
           <div className="col-span-2 sm:col-span-2">
             <h4 className="font-medium text-sm text-body mb-3">BestPhilippines</h4>
             <p className="text-sm text-secondary max-w-xs">
-              Fewer venues. Better curation. Three editors, arguing.
+              Fewer venues. Better curation. Two editors, arguing.
             </p>
           </div>
         </div>

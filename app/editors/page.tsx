@@ -2,47 +2,38 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "The Masthead — BestPhilippines",
+  title: "The Editors — BestPhilippines",
   description:
-    "The Filipino editors, critics, and cooks-gone-rogue arguing over every pick on BestPhilippines.",
+    "Martin Casey and Yahnee Ortiz — the two editors behind every pick on BestPhilippines.",
 };
 
 interface Editor {
   name: string;
   initials: string;
-  beat: string;
+  role: string;
   bio: string;
   location: string;
-  signature: string; // a short personal line — their editorial signature
+  signature: string;
 }
 
 const EDITORS: Editor[] = [
   {
-    name: "Mika Reyes",
-    initials: "MR",
-    beat: "Lechon, regional Filipino, heritage kitchens",
-    location: "Makati · Quezon City",
-    bio: "Former line cook, now full-time eater. Grew up between Cebu and Pampanga; writes about the food that travelled to Manila with her lolas. Thinks the best sinigang is still her tita's.",
+    name: "Martin Casey",
+    initials: "MC",
+    role: "Co-founder · Editor",
+    location: "Manila",
+    bio: "Forty countries of what he calls food tourism and what everyone else calls an expensive habit. He offsets the obsession at the gym, which is the only sustainable way to keep doing this for the long haul. Manila is home, and the case for Filipino food on the world stage is the argument he keeps coming back to.",
     signature:
-      "If a kitchen isn't arguing about tuyo oil at 3 PM, it's not really a Filipino kitchen.",
+      "Forty countries in, and Manila is still the argument I keep coming back to.",
   },
   {
-    name: "Kara Lim",
-    initials: "KL",
-    beat: "Natural wine, cocktail bars, late-night rooms",
-    location: "Poblacion · BGC",
-    bio: "Seven years behind the bar, four writing about them. Still lists her favourite amaro nightly. Runs Manila's quietest tasting group, argues loudly for the loud rooms.",
+    name: "Yahnee Ortiz",
+    initials: "YO",
+    role: "Co-founder · Editor",
+    location: "Manila · Cebu",
+    bio: "Born in Cebu, which means she has strong opinions about lechon and is not shy about them. She ran a successful cake business before this, so she knows how a kitchen actually works, how brutal consistency is to maintain, and why most “great” restaurants aren’t great twice in a row. Her food politics are Filipino first — sisig, kinilaw, regional rice. She is the reason the scoring rubric takes karinderya as seriously as it takes tasting menus.",
     signature:
-      "A great bar has one of three things: a bartender who remembers you, a cocktail worth travelling for, or a door you nearly missed.",
-  },
-  {
-    name: "JP Cuizon",
-    initials: "JP",
-    beat: "Karinderya, street food, the ₱100 lunch",
-    location: "Binondo · Cubao · Quezon City",
-    bio: "Walked the length of Aurora Boulevard for his last piece. Eats where the taxi drivers eat. Believes the definitive Manila meal is still pancit palabok standing up, in fluorescent light.",
-    signature:
-      "The ₱100 lunch is the real city. Everything else is the postcard.",
+      "Most great restaurants aren’t great twice in a row. Consistency is the brutal part.",
   },
 ];
 
@@ -52,16 +43,16 @@ export default function EditorsPage() {
       {/* Masthead hero */}
       <section className="max-w-screen-2xl mx-auto px-6 sm:px-10 pt-16 sm:pt-20 lg:pt-24 pb-10 sm:pb-14">
         <div className="text-[10px] sm:text-[11px] font-extrabold tracking-[0.22em] uppercase text-terra">
-          The Masthead
+          The Editors
         </div>
         <h1 className="mt-3 font-[family-name:var(--font-noto-serif)] text-ink font-black tracking-[-0.045em] leading-[0.92] text-[48px] sm:text-[80px] lg:text-[104px] max-w-[920px]">
-          Three people<br />
-          <span className="italic text-terra">arguing</span>, so you don&apos;t have to.
+          Two editors<br />
+          <span className="italic text-terra">arguing,</span> so you don&apos;t have to.
         </h1>
         <p className="mt-6 text-secondary text-[15px] sm:text-[17px] leading-[1.5] max-w-[680px]">
           BestPhilippines isn&apos;t an algorithm wearing a face. Every list is
-          argued over by actual Filipinos who eat out for a living — and, on
-          long Mondays, for therapy.
+          argued over by two Filipinos who eat out more than is probably
+          reasonable, and have been arguing about dinner for years.
         </p>
       </section>
 
@@ -89,7 +80,7 @@ export default function EditorsPage() {
               </div>
               <div className="min-w-0 max-w-[720px]">
                 <div className="text-[10px] sm:text-[11px] font-extrabold tracking-[0.22em] uppercase text-terra">
-                  {ed.beat}
+                  {ed.role}
                 </div>
                 <h2 className="mt-2 font-[family-name:var(--font-noto-serif)] text-ink font-black tracking-[-0.03em] leading-[0.95] text-[34px] sm:text-[48px]">
                   {ed.name}
@@ -114,14 +105,14 @@ export default function EditorsPage() {
               A place we&apos;re missing?
             </div>
             <p className="mt-2 text-white/70 text-[13px] sm:text-[14px]">
-              We respond to every pitch. If it&apos;s good, we&apos;ll go.
+              We read everything. If it&apos;s good, we&apos;ll go.
             </p>
           </div>
           <Link
-            href="mailto:editors@bestphilippines.co"
+            href="mailto:hello@bestphilippines.co"
             className="shrink-0 inline-flex items-center gap-1.5 px-5 py-3 rounded-[8px] bg-saffron text-volcanic text-[13px] font-extrabold hover:bg-coral hover:text-white transition-colors"
           >
-            editors@bestphilippines.co →
+            hello@bestphilippines.co →
           </Link>
         </div>
       </section>

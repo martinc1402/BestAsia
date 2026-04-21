@@ -31,13 +31,7 @@ const LIST_IMAGES: Record<string, string> = {
 const FALLBACK_COVER =
   "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1800&q=85";
 
-const AUTHORS = ["Mika Reyes", "Kara Lim", "JP Cuizon"];
-
-function authorFor(slug: string): string {
-  let h = 0;
-  for (let i = 0; i < slug.length; i++) h = (h * 31 + slug.charCodeAt(i)) >>> 0;
-  return AUTHORS[h % AUTHORS.length];
-}
+const EDITORIAL_BYLINE = "BestPhilippines editors";
 
 function updatedLabel(list: CuratedList): string {
   const d = list.published_at ? new Date(list.published_at) : new Date();
@@ -74,11 +68,6 @@ export default async function CuratedListPage({ params }: Props) {
 
   const { list, items } = result;
   const cover = LIST_IMAGES[list.slug] || FALLBACK_COVER;
-  const author = authorFor(list.slug);
-  const initials = author
-    .split(" ")
-    .map((s) => s[0])
-    .join("");
   const count = items.length;
 
   return (
@@ -117,11 +106,8 @@ export default async function CuratedListPage({ params }: Props) {
             </p>
           )}
           <div className="mt-5 sm:mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-white/70 text-[11.5px] sm:text-[12.5px]">
-            <div className="w-7 h-7 rounded-full bg-saffron text-ink text-[10px] font-extrabold flex items-center justify-center">
-              {initials}
-            </div>
             <span>
-              By <span className="text-white font-bold">{author}</span>
+              By <span className="text-white font-bold">{EDITORIAL_BYLINE}</span>
             </span>
             <span className="opacity-50">·</span>
             <span>Updated {updatedLabel(list)}</span>

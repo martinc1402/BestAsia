@@ -48,18 +48,10 @@ const FILTERS = [
 
 type FilterId = (typeof FILTERS)[number]["id"];
 
-const AUTHORS = ["Mika Reyes", "Kara Lim", "JP Cuizon"];
+const EDITORIAL_BYLINE = "BestPhilippines editors";
 
 function imageFor(slug: string): string {
   return LIST_IMAGES[slug] ?? FALLBACK_IMAGE;
-}
-
-function authorFor(slug: string): string {
-  let h = 0;
-  for (let i = 0; i < slug.length; i++) {
-    h = (h * 31 + slug.charCodeAt(i)) >>> 0;
-  }
-  return AUTHORS[h % AUTHORS.length];
 }
 
 function updatedLabel(list: CuratedList): string {
@@ -228,7 +220,7 @@ async function FeaturedCollection({ list }: { list: ListWithCount }) {
           )}
           <div className="flex items-center justify-between gap-4">
             <div className="text-[11.5px] text-white/55">
-              {updatedLabel(list)} &middot; by {authorFor(list.slug)}
+              {updatedLabel(list)} &middot; by {EDITORIAL_BYLINE}
             </div>
             <span className="shrink-0 inline-flex items-center gap-1 px-4 py-2.5 rounded-full bg-saffron text-ink text-[12.5px] font-extrabold whitespace-nowrap">
               Read the list
@@ -299,7 +291,7 @@ function CollectionCard({ list }: { list: ListWithCount }) {
           {list.title}
         </h4>
         <div className="mt-1.5 text-[11px] text-white/70">
-          {updatedLabel(list)} &middot; {authorFor(list.slug)}
+          {updatedLabel(list)} &middot; {EDITORIAL_BYLINE}
         </div>
       </div>
     </Link>
