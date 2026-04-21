@@ -43,6 +43,8 @@ These are the project's non-negotiables. Code that breaks any of these is wrong 
 
 8. **No sub-5.0 published content in Phase 1.** This includes review drafts, preview pages, and admin-visible scores that get pushed to production unintentionally. Sub-5.0 named-critic long-form is a Phase 2 feature.
 
+9. **Design system tokens are the only source of visual truth.** Colors, typography, spacing, and components come from `/docs/design/design-system.md`. No hardcoded hex values in components. No arbitrary Tailwind values (`text-[17px]`, `bg-[#ABCDEF]`) unless a new token is added to both the Tailwind config and the design system doc in the same PR. If the design system seems to be missing a capability, flag it rather than bypass it.
+
 ---
 
 ## Voice — the short version
@@ -57,6 +59,19 @@ Full guide at `/docs/editorial/voice-guide.md`. Shortest version:
 - **The test:** would a Filipino food writer you respect nod at this, or roll their eyes?
 
 When generating microcopy, UI strings, error messages, or any user-facing text: apply the voice guide. When in doubt, err toward plain and specific.
+
+---
+
+## Design — the short version
+
+Full guide at `/docs/design/design-system.md`. Shortest version:
+
+- **Philosophy:** tropical editorial. Pitchfork trust, Airbnb browsability, Philippine identity.
+- **Colors:** paper cream, ink, volcanic black, rust, calamansi yellow, coral, teal. No other palette.
+- **Type:** Fraunces for display and scores, Inter for everything else, JetBrains Mono for the live strip.
+- **Scores are the biggest element on any page.** Bigger than the venue name. Bigger than the photo caption. The number is the verdict.
+- **What we don't do:** no shadows, no gradients except hero overlays, no illustration, no spinners, no scroll animations, no glassmorphism.
+- **The test:** does this help someone trust the score, and decide where to eat tonight?
 
 ---
 
@@ -110,8 +125,10 @@ Full schema in `/docs/product/data-pipeline.md`. Core tables for reference:
 |---|---|
 | What is BestPhilippines trying to be? | `/docs/product/spec-v2.md` |
 | How is a score calculated? | `/docs/editorial/about-scoring.md` (public) + `/docs/product/scoring-algorithm.md` (technical) |
+| How does data flow into the system? | `/docs/product/data-pipeline.md` |
 | Can we do X to a venue without user consent? | `/docs/editorial/about-policies.md` |
 | How should this copy sound? | `/docs/editorial/voice-guide.md` |
+| How should this look? | `/docs/design/design-system.md` |
 | Is this decision already settled? | `/docs/decisions/` — search by topic |
 | What ships on day one? | `/docs/launch/` |
 | What do Martin and Yahnee's public bios say? | `/docs/editorial/about.md` |
@@ -129,6 +146,8 @@ Claude Code should stop and ask Martin or Yahnee before:
 - Adding new list categories that aren't in `/docs/launch/canon-lists.md`
 - Accepting any change that removes a hard rule above
 - Changing the algorithm weights, the boost limit, or the data thresholds
+- Adding new colors, typefaces, or major design tokens outside the design system
+- Introducing UI patterns the design system explicitly forbids (shadows, gradients, illustration, etc.)
 
 When uncertain whether a change touches these areas, ask. Over-asking is cheap; silently introducing a change that breaks the project's credibility is not.
 
@@ -138,5 +157,6 @@ When uncertain whether a change touches these areas, ask. Over-asking is cheap; 
 
 - **v1.0 — April 2026.** Initial publication.
 - **v1.1 — April 2026.** Fixed data provider list (removed Zomato, deprioritized Yelp; see ADR 0008). Clarified banned-words lint status. Added `unknown` + narrowing as the TypeScript escape hatch.
+- **v1.2 — April 2026.** Added hard rule 9 (design system tokens are source of truth). Added Design short version. Added design system and data-pipeline pointers to the lookup table. Added design-related items to "when to stop and ask."
 
 This file will change as the project matures. When it does, update the changelog.
