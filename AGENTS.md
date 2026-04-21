@@ -1,3 +1,7 @@
+# AGENTS.md
+
+> **Start with `/CLAUDE.md` first.** It contains the full project context, hard rules, voice, and tech stack for BestPhilippines. This file is a Next.js-specific supplement, not a replacement.
+
 <!-- BEGIN:nextjs-agent-rules -->
 # This is NOT the Next.js you know
 

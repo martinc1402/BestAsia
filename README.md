@@ -1,3 +1,8 @@
+## For Claude Code / AI assistants
+
+Read `CLAUDE.md` first. It points to all project context in `/docs`.
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
