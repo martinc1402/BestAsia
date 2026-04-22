@@ -29,7 +29,7 @@ These are the project's non-negotiables. Code that breaks any of these is wrong 
 
 1. **Nothing affects the score except the algorithm and the bounded editorial boost.** Not ads. Not affiliates. Not paid boosts. Not partnerships. The score pipeline accepts inputs only from approved external data providers (see `/docs/decisions/0005-algorithm-weights.md` for the current list) and the editorial boost field (bounded ±1.0). No other code path writes to the score column.
 
-2. **The 5.0 floor is absolute.** Venues scoring below 5.0 do not appear on the site. The listing query must filter `score >= 5.0`. No exceptions in Phase 1.
+2. **The 5.0 floor is absolute.** Venues scoring below 5.0 do not appear on the site. The listing query must filter `final_score >= 5.0`. No exceptions in Phase 1.
 
 3. **The editorial boost is bounded at ±1.0.** Hard-coded constraint at the database level and the API level. Not configurable from the admin UI.
 
@@ -44,6 +44,8 @@ These are the project's non-negotiables. Code that breaks any of these is wrong 
 8. **No sub-5.0 published content in Phase 1.** This includes review drafts, preview pages, and admin-visible scores that get pushed to production unintentionally. Sub-5.0 named-critic long-form is a Phase 2 feature.
 
 9. **Design system tokens are the only source of visual truth.** Colors, typography, spacing, and components come from `/docs/design/design-system.md`. No hardcoded hex values in components. No arbitrary Tailwind values (`text-[17px]`, `bg-[#ABCDEF]`) unless a new token is added to both the Tailwind config and the design system doc in the same PR. If the design system seems to be missing a capability, flag it rather than bypass it.
+
+10. **No fabricated UI.** Do not ship UI that implies a feature that doesn't exist. Forms must submit somewhere. CTAs must navigate to functional destinations. Maps must be real maps, not decorative SVGs. Stats must derive from real data, not placeholder math. Static strings presented as venue-specific facts must actually be venue-specific. See `/docs/decisions/0010-no-fabricated-ui.md` for the full rationale. Placeholder that looks like product is worse than absence.
 
 ---
 
@@ -84,6 +86,7 @@ Full guide at `/docs/design/design-system.md`. Shortest version:
 - **Cron:** Vercel Scheduled Functions (or Supabase Edge Functions for heavy batch)
 - **Image handling:** Next.js Image component, with Supabase Storage or Cloudinary
 - **External APIs:** Google Places (primary), TripAdvisor Content API (secondary), plus optional Foursquare/Facebook Places signal. FX rates via exchangerate.host. See `/docs/decisions/0005-algorithm-weights.md` for the canonical list and `/docs/decisions/0008-external-data-providers.md` for provider selection rationale.
+- **Migrations:** currently applied manually via Supabase Studio. CI auto-apply (Option 2 pattern: PR dry-run + post-merge apply) is slated before the scoring-pipeline migration lands. See `/docs/product/data-pipeline.md` §Migration.
 
 ---
 
@@ -108,14 +111,14 @@ Full guide at `/docs/design/design-system.md`. Shortest version:
 
 Full schema in `/docs/product/data-pipeline.md`. Core tables for reference:
 
-- `venues` — the master record
-- `venue_scores` — current score components (algorithmic, boost, final)
-- `score_history` — weekly snapshot of every venue's score (for the sparkline)
-- `editorial_boost_log` — audit log of every boost applied
-- `lists` — the canon lists (dynamic, generated from scores + filters)
-- `bnt_awards` — Best New Table winners, editorial pathway
-- `pitch_submissions` — reader contributions queue
-- `editors` — currently just Martin and Yahnee
+- `venues` — the master record. Currently carries `final_score numeric(3,1)` (added in 0001 migration). Legacy `best_score` retained for rollback.
+- `venue_scores` — not yet implemented; will carry current score components (algorithmic, boost, final). Scheduled for the scoring-pipeline PR.
+- `score_history` — not yet implemented; weekly snapshot of every venue's score (for the sparkline).
+- `editorial_boost_log` — not yet implemented; audit log of every boost applied.
+- `lists` — the canon lists (dynamic, generated from scores + filters).
+- `bnt_awards` — Best New Table winners, editorial pathway.
+- `pitch_submissions` — reader contributions queue.
+- `editors` — currently just Martin and Yahnee.
 
 ---
 
@@ -148,6 +151,7 @@ Claude Code should stop and ask Martin or Yahnee before:
 - Changing the algorithm weights, the boost limit, or the data thresholds
 - Adding new colors, typefaces, or major design tokens outside the design system
 - Introducing UI patterns the design system explicitly forbids (shadows, gradients, illustration, etc.)
+- Adding any UI element that implies a feature that hasn't been built (per Hard Rule 10)
 
 When uncertain whether a change touches these areas, ask. Over-asking is cheap; silently introducing a change that breaks the project's credibility is not.
 
@@ -158,5 +162,6 @@ When uncertain whether a change touches these areas, ask. Over-asking is cheap; 
 - **v1.0 — April 2026.** Initial publication.
 - **v1.1 — April 2026.** Fixed data provider list (removed Zomato, deprioritized Yelp; see ADR 0008). Clarified banned-words lint status. Added `unknown` + narrowing as the TypeScript escape hatch.
 - **v1.2 — April 2026.** Added hard rule 9 (design system tokens are source of truth). Added Design short version. Added design system and data-pipeline pointers to the lookup table. Added design-related items to "when to stop and ask."
+- **v1.3 — April 2026.** Added hard rule 10 (no fabricated UI) per ADR 0010. Added "no fabricated UI" to "when to stop and ask." Updated database schema section to note current migration state (`final_score` added per PR 2, scoring-pipeline tables still pending). Added migrations line to tech stack noting manual-apply status and the Option 2 plan.
 
 This file will change as the project matures. When it does, update the changelog.
