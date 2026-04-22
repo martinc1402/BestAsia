@@ -750,6 +750,8 @@ The system must degrade gracefully. Some common failure modes:
 
 All schema changes go through Supabase migrations in `supabase/migrations/`. No manual schema edits on the production database. Migrations are idempotent where possible and always reversible.
 
+Migrations are currently applied manually in the Supabase SQL editor after the PR merges. CI auto-apply (Option 2 pattern: PR dry-run check + post-merge `supabase db push`) is slated to land before the scoring-pipeline migration, which will be the first migration with material complexity.
+
 ### Scoring config versions
 
 Creating a new version:
