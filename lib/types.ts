@@ -94,8 +94,6 @@ export interface CuratedList {
   meta_title: string | null;
   meta_description: string | null;
   is_published: boolean;
-  is_sponsored: boolean;
-  sponsor_name: string | null;
   published_at: string | null;
 }
 
