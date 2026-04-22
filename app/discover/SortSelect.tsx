@@ -24,7 +24,7 @@ export default function SortSelect({ sp }: { sp: DiscoverSP }) {
           })
         )
       }
-      className="px-2.5 py-1.5 border border-outline-variant rounded-lg text-xs font-bold text-ink bg-white hover:border-ink transition-colors cursor-pointer"
+      className="px-2.5 py-1.5 border border-stone rounded-lg text-micro font-bold text-ink bg-white hover:border-ink transition-colors cursor-pointer"
     >
       {OPTIONS.map((o) => (
         <option key={o.value} value={o.value}>

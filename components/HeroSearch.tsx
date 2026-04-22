@@ -1,11 +1,19 @@
 import Link from "next/link";
+import type { LucideIcon } from "lucide-react";
+import { Heart, Laptop, Moon, Search, Sun, UtensilsCrossed } from "lucide-react";
 
-const HERO_PILLS = [
-  { label: "Date Night", icon: "favorite", href: "/manila/restaurants?mood=date-night" },
-  { label: "Rooftop", icon: "deck", href: "/manila/bars?mood=rooftop" },
-  { label: "Late Night", icon: "nightlife", href: "/manila/bars?mood=late-night" },
-  { label: "Laptop Cafe", icon: "laptop_mac", href: "/manila/cafes?mood=laptop" },
-  { label: "Filipino Food", icon: "ramen_dining", href: "/manila/restaurants?cuisine=filipino" },
+interface HeroPill {
+  label: string;
+  Icon: LucideIcon;
+  href: string;
+}
+
+const HERO_PILLS: HeroPill[] = [
+  { label: "Date Night", Icon: Heart, href: "/manila/restaurants?mood=date-night" },
+  { label: "Rooftop", Icon: Sun, href: "/manila/bars?mood=rooftop" },
+  { label: "Late Night", Icon: Moon, href: "/manila/bars?mood=late-night" },
+  { label: "Laptop Cafe", Icon: Laptop, href: "/manila/cafes?mood=laptop" },
+  { label: "Filipino Food", Icon: UtensilsCrossed, href: "/manila/restaurants?cuisine=filipino" },
 ];
 
 export default function HeroSearch() {
@@ -14,26 +22,20 @@ export default function HeroSearch() {
       <form
         action="/discover"
         method="GET"
-        className="flex items-center gap-2 bg-white rounded-2xl p-2 shadow-[0_10px_30px_rgba(0,0,0,0.15)]"
+        className="flex items-center gap-2 bg-paper rounded-2xl p-2"
       >
         <div className="flex items-center flex-1 gap-3 pl-4">
-          <span
-            className="material-symbols-outlined shrink-0"
-            style={{ fontSize: 22, color: "#907065" }}
-          >
-            search
-          </span>
+          <Search className="w-5 h-5 text-stone-deep shrink-0" aria-hidden />
           <input
             type="text"
             name="q"
             placeholder="Search for a restaurant, cuisine, or location"
-            className="font-[family-name:var(--font-plus-jakarta)] w-full h-12 bg-transparent text-base focus:outline-none placeholder:text-[#907065]"
-            style={{ color: "#907065" }}
+            className="font-sans w-full h-12 bg-transparent text-body text-ink focus:outline-none placeholder:text-stone-deep"
           />
         </div>
         <button
           type="submit"
-          className="btn-primary-gradient font-[family-name:var(--font-plus-jakarta)] shrink-0 rounded-xl px-6 py-3.5 text-base font-bold text-on-primary transition-transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-60 sm:px-8 sm:py-4"
+          className="bg-rust hover:bg-ember font-sans shrink-0 rounded-xl px-6 py-3.5 text-body font-bold text-paper transition-colors disabled:opacity-60 sm:px-8 sm:py-4"
         >
           Explore
         </button>
@@ -44,11 +46,9 @@ export default function HeroSearch() {
           <Link
             key={pill.label}
             href={pill.href}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/15 text-white text-[13px] font-medium backdrop-blur-sm border border-white/25 hover:bg-white/25 transition-colors"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-paper/10 text-paper text-body-sm font-semibold border border-paper/25 hover:bg-paper/20 transition-colors"
           >
-            <span className="material-symbols-outlined" style={{ fontSize: 16 }}>
-              {pill.icon}
-            </span>
+            <pill.Icon className="w-4 h-4" />
             {pill.label}
           </Link>
         ))}

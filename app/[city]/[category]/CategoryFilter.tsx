@@ -21,10 +21,10 @@ export default function CategoryFilter({ city, active }: CategoryFilterProps) {
         <Link
           key={tab.slug}
           href={`/${city}/${tab.slug}`}
-          className={`shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+          className={`shrink-0 px-4 py-2 rounded-full text-body-sm font-semibold transition-all duration-200 ${
             active === tab.slug
-              ? "bg-terra text-white"
-              : "bg-page text-secondary hover:bg-border/50"
+              ? "bg-rust text-white"
+              : "bg-paper text-stone-deep hover:bg-border/50"
           }`}
         >
           {tab.label}

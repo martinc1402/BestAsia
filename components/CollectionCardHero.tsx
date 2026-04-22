@@ -55,7 +55,7 @@ export default function CollectionCardHero({
       href={`/best/${slug}`}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      className="group relative block aspect-[3/4] rounded-[14px] overflow-hidden shadow-[0_3px_10px_rgba(0,0,0,0.08)] hover:shadow-[0_14px_28px_rgba(0,0,0,0.18)] hover:-translate-y-[3px] transition-all duration-[220ms]"
+      className="group relative block aspect-[3/4] rounded-[14px] overflow-hidden hover: hover:-translate-y-1 transition-all duration-[220ms]"
     >
       <Image
         src={activeImg}
@@ -64,15 +64,14 @@ export default function CollectionCardHero({
         className="object-cover transition-opacity duration-300"
         sizes="(max-width: 640px) 80vw, (max-width: 1024px) 40vw, 25vw"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/90" style={{ backgroundImage: "linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.9) 100%)" }} />
-      <span className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-white/95 text-terra text-[10px] font-black tracking-[0.1em]">
+      <span className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-white/95 text-rust text-micro font-bold tracking-[0.1em]">
         TOP {count}
       </span>
       <div className="absolute bottom-0 left-0 right-0 p-4">
-        <h4 className="font-[family-name:var(--font-noto-serif)] text-[22px] font-black text-white leading-[1.05] tracking-[-0.02em]">
+        <h4 className="font-display text-verdict font-bold text-white leading-[1.05] tracking-[-0.02em]">
           {title}
         </h4>
-        <div className="mt-1.5 text-[11px] text-white/70 truncate">
+        <div className="mt-1.5 text-micro text-white/70 truncate">
           {activeLabel}
         </div>
       </div>

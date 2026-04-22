@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Check } from "lucide-react";
 import type { Neighborhood } from "@/lib/types";
 import {
   activeFilterCount,
@@ -99,27 +100,27 @@ export default function FiltersSidebar({ sp, neighborhoods }: Props) {
   const total = activeFilterCount(sp);
 
   return (
-    <aside className="px-5 py-6 border-r border-outline-variant bg-bone min-h-full">
-      <div className="font-[family-name:var(--font-noto-serif)] text-xl font-black text-ink leading-tight tracking-[-0.02em]">
+    <aside className="px-5 py-6 border-r border-stone bg-paper min-h-full">
+      <div className="font-display text-verdict font-bold text-ink leading-tight tracking-[-0.02em]">
         Filters
       </div>
       {total > 0 ? (
         <Link
           href="/discover"
-          className="mt-1.5 inline-block text-[11px] font-bold text-terra hover:underline"
+          className="mt-1.5 inline-block text-micro font-bold text-rust hover:underline"
         >
           Clear all ({total})
         </Link>
       ) : (
-        <div className="mt-1.5 text-[11px] text-outline">No filters active</div>
+        <div className="mt-1.5 text-micro text-stone-deep">No filters active</div>
       )}
 
       {sections.map((sec) => (
         <section
           key={sec.title}
-          className="mt-5 mb-5 pb-5 border-b border-outline-variant/50 last:border-0"
+          className="mt-5 mb-5 pb-5 border-b border-stone/50 last:border-0"
         >
-          <div className="text-[10px] font-extrabold tracking-[0.18em] uppercase text-outline mb-2.5">
+          <div className="text-micro font-bold tracking-[0.18em] uppercase text-stone-deep mb-2.5">
             {sec.title}
           </div>
           <div className="space-y-1.5">
@@ -127,13 +128,13 @@ export default function FiltersSidebar({ sp, neighborhoods }: Props) {
               <Link
                 key={o.id}
                 href={o.href}
-                className="flex items-center gap-2 py-1 text-[12.5px] text-ink hover:text-terra transition-colors group"
+                className="flex items-center gap-2 py-1 text-body-sm text-ink hover:text-rust transition-colors group"
               >
                 <span
                   className={
                     o.on
                       ? "shrink-0 w-4 h-4 rounded bg-ink flex items-center justify-center"
-                      : "shrink-0 w-4 h-4 rounded border-[1.5px] border-outline-variant bg-white group-hover:border-ink transition-colors"
+                      : "shrink-0 w-4 h-4 rounded border-[1.5px] border-stone bg-white group-hover:border-ink transition-colors"
                   }
                 >
                   {o.on && <CheckIcon />}
@@ -146,7 +147,7 @@ export default function FiltersSidebar({ sp, neighborhoods }: Props) {
       ))}
 
       <div>
-        <div className="text-[10px] font-extrabold tracking-[0.18em] uppercase text-outline mb-2.5">
+        <div className="text-micro font-bold tracking-[0.18em] uppercase text-stone-deep mb-2.5">
           Price
         </div>
         <div className="flex gap-1.5">
@@ -161,8 +162,8 @@ export default function FiltersSidebar({ sp, neighborhoods }: Props) {
                 })}
                 className={
                   on
-                    ? "flex-1 text-center py-2 border border-ink bg-ink text-white rounded-lg text-xs font-bold"
-                    : "flex-1 text-center py-2 border border-outline-variant bg-white text-ink rounded-lg text-xs font-bold hover:border-ink transition-colors"
+                    ? "flex-1 text-center py-2 border border-ink bg-ink text-white rounded-lg text-micro font-bold"
+                    : "flex-1 text-center py-2 border border-stone bg-white text-ink rounded-lg text-micro font-bold hover:border-ink transition-colors"
                 }
               >
                 {symbols}
@@ -176,15 +177,5 @@ export default function FiltersSidebar({ sp, neighborhoods }: Props) {
 }
 
 function CheckIcon() {
-  return (
-    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden>
-      <path
-        d="M5 12l5 5 9-11"
-        stroke="#fff"
-        strokeWidth="3"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
+  return <Check className="w-2.5 h-2.5 text-paper" strokeWidth={3} aria-hidden />;
 }

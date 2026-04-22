@@ -9,12 +9,12 @@ export const TAG_COLORS: Record<
   TagDimension,
   { bg: string; text: string }
 > = {
-  occasion: { bg: "bg-tag-occasion-bg", text: "text-tag-occasion-text" },
-  vibe: { bg: "bg-tag-vibe-bg", text: "text-tag-vibe-text" },
-  cuisine: { bg: "bg-tag-cuisine-bg", text: "text-tag-cuisine-text" },
-  practical: { bg: "bg-tag-practical-bg", text: "text-tag-practical-text" },
-  budget: { bg: "bg-tag-budget-bg", text: "text-tag-budget-text" },
-  highlight: { bg: "bg-tag-highlight-bg", text: "text-tag-highlight-text" },
+  occasion: { bg: "bg-seafoam", text: "text-teal" },
+  vibe: { bg: "bg-stone", text: "text-ink" },
+  cuisine: { bg: "bg-stone", text: "text-rust" },
+  practical: { bg: "bg-stone", text: "text-stone-deep" },
+  budget: { bg: "bg-stone", text: "text-stone-deep" },
+  highlight: { bg: "bg-rust/10", text: "text-rust" },
 };
 
 export function getCategoryLabel(category: string): string {
@@ -35,4 +35,14 @@ export function getCategorySingular(category: string): string {
     nightclub: "Nightclub",
   };
   return labels[category] || category;
+}
+
+// Score-tier color per design-system.md §Score-specific palette.
+// 9.0+ rust (canon), 7.0–8.9 ink, 6.0–6.9 stone-deep (mid), 5.0–5.9 ember (low).
+export function scoreColor(score: number | null | undefined): string {
+  if (score == null) return "text-stone-deep";
+  if (score >= 9.0) return "text-rust";
+  if (score >= 7.0) return "text-ink";
+  if (score >= 6.0) return "text-stone-deep";
+  return "text-ember";
 }

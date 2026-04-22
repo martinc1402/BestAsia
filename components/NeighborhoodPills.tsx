@@ -12,7 +12,7 @@ export default function NeighborhoodPills({ neighborhoods }: NeighborhoodPillsPr
         <Link
           key={hood.id}
           href={`/manila#${hood.slug}`}
-          className="shrink-0 px-4 py-2 rounded-full border border-border text-sm text-secondary hover:bg-terra hover:text-white hover:border-terra transition-all duration-200"
+          className="shrink-0 px-4 py-2 rounded-full border border-border text-body-sm text-stone-deep hover:bg-rust hover:text-white hover:border-rust transition-all duration-200"
         >
           {hood.name}
         </Link>

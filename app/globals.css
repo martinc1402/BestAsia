@@ -1,178 +1,106 @@
 @import "tailwindcss";
 
-:root {
-  --color-terra: #A83900;
-  --color-terra-dark: #802A00;
-  --color-terra-container: #FF5B00;
-  --color-terra-light: #FFDBCE;
-  --color-terra-text: #521800;
-  --color-ink: #1B1C1C;
-  --color-ink-soft: #303030;
-  --color-volcanic: #0E0D0B;           /* deeper than ink — for the newsletter slab */
-  --color-saffron: #FABD00;            /* calamansi yellow — use more of this */
-  --color-gold: #785900;
-  --color-gold-fixed: #FFDF9E;
-  --color-on-gold-fixed: #261A00;
-  --color-teal: #1E5A6C;               /* deep sea teal — secondary accent */
-  --color-teal-soft: #8FC5D0;
-  --color-teal-container: #8FEEFC;
-  --color-coral: #F27557;              /* sunset coral — hover/active states */
-  --color-coral-soft: #FFD4C8;
-  --color-cream: #FCF9F8;
-  --color-bone: #FCF9F8;
-  --color-moss: #5B4137;
-  --color-surface-low: #F6F3F2;
-  --color-surface-high: #EAE7E7;
-  --color-body: #1B1C1C;
-  --color-secondary: #5B4137;
-  --color-outline: #907065;
-  --color-outline-variant: #E4BEB1;
-  --color-border: #E4BEB1;
-  --color-page: #FCF9F8;
-  --color-card: #FFFFFF;
-}
+@theme {
+  /* === DESIGN SYSTEM v1.0 · /docs/design/design-system.md === */
 
-@theme inline {
-  --color-terra: var(--color-terra);
-  --color-terra-dark: var(--color-terra-dark);
-  --color-terra-container: var(--color-terra-container);
-  --color-terra-light: var(--color-terra-light);
-  --color-terra-text: var(--color-terra-text);
-  --color-ink: var(--color-ink);
-  --color-ink-soft: var(--color-ink-soft);
-  --color-saffron: var(--color-saffron);
-  --color-gold: var(--color-gold);
-  --color-gold-fixed: var(--color-gold-fixed);
-  --color-on-gold-fixed: var(--color-on-gold-fixed);
-  --color-teal: var(--color-teal);
-  --color-teal-soft: var(--color-teal-soft);
-  --color-teal-container: var(--color-teal-container);
-  --color-coral: var(--color-coral);
-  --color-coral-soft: var(--color-coral-soft);
-  --color-volcanic: var(--color-volcanic);
-  --color-cream: var(--color-cream);
-  --color-bone: var(--color-bone);
-  --color-moss: var(--color-moss);
-  --color-surface-low: var(--color-surface-low);
-  --color-surface-high: var(--color-surface-high);
-  --color-outline: var(--color-outline);
-  --color-outline-variant: var(--color-outline-variant);
-  --color-body: var(--color-body);
-  --color-secondary: var(--color-secondary);
-  --color-border: var(--color-border);
-  --color-page: var(--color-page);
-  --color-card: var(--color-card);
-  --color-tag-occasion-bg: #E8F0E4;
-  --color-tag-occasion-text: #3D5A36;
-  --color-tag-vibe-bg: #EEEDFE;
-  --color-tag-vibe-text: #3C3489;
-  --color-tag-cuisine-bg: #FAEEDA;
-  --color-tag-cuisine-text: #633806;
-  --color-tag-practical-bg: #EDF0F2;
-  --color-tag-practical-text: #3A4A56;
-  --color-tag-budget-bg: #F0EDE8;
-  --color-tag-budget-text: #5A5650;
-  --color-tag-highlight-bg: #FBEAF0;
-  --color-tag-highlight-text: #72243E;
-  --font-sans: var(--font-inter);
-  --font-serif: var(--font-playfair-display);
+  /* Primary palette */
+  --color-paper: #FBF7F0;
+  --color-ink: #1A1A1A;
+  --color-volcanic: #0F0F0F;
+  --color-rust: #B85C3C;
+  --color-calamansi: #F5B800;
+  --color-coral: #E85A4F;
+  --color-teal: #0A4D5C;
+
+  /* Supporting palette */
+  --color-stone: #E8E2D5;
+  --color-stone-deep: #A39988;
+  --color-seafoam: #C8D9D7;
+  --color-ember: #8B3A2E;
+  --color-live: #2E8540;
+
+  /* Font families */
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+
+  /* Type scale */
+  --text-display: 5.5rem;
+  --text-display--line-height: 1.05;
+  --text-display--letter-spacing: -0.02em;
+  --text-display--font-weight: 700;
+
+  --text-h1: 3rem;
+  --text-h1--line-height: 1.1;
+  --text-h1--letter-spacing: -0.02em;
+  --text-h1--font-weight: 700;
+
+  --text-h2: 2.25rem;
+  --text-h2--line-height: 1.15;
+  --text-h2--letter-spacing: -0.015em;
+  --text-h2--font-weight: 700;
+
+  --text-h3: 1.5rem;
+  --text-h3--line-height: 1.2;
+  --text-h3--letter-spacing: -0.01em;
+  --text-h3--font-weight: 600;
+
+  --text-h4: 1.125rem;
+  --text-h4--line-height: 1.3;
+  --text-h4--font-weight: 600;
+
+  --text-verdict: 1.25rem;
+  --text-verdict--line-height: 1.4;
+  --text-verdict--font-weight: 400;
+
+  --text-body-lg: 1.125rem;
+  --text-body-lg--line-height: 1.6;
+
+  --text-body: 1rem;
+  --text-body--line-height: 1.6;
+
+  --text-body-sm: 0.875rem;
+  --text-body-sm--line-height: 1.5;
+
+  --text-micro: 0.75rem;
+  --text-micro--line-height: 1.4;
+  --text-micro--letter-spacing: 0.1em;
+  --text-micro--font-weight: 500;
+
+  --text-score-display: 8rem;
+  --text-score-display--line-height: 1;
+  --text-score-display--letter-spacing: -0.03em;
+  --text-score-display--font-weight: 700;
+
+  --text-score-card: 4.5rem;
+  --text-score-card--line-height: 1;
+  --text-score-card--letter-spacing: -0.02em;
+  --text-score-card--font-weight: 700;
+
+  --text-score-chip: 1.5rem;
+  --text-score-chip--line-height: 1;
+  --text-score-chip--letter-spacing: -0.01em;
+  --text-score-chip--font-weight: 700;
 }
 
 body {
-  color: var(--color-body);
-  background-color: var(--color-page);
-  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  color: var(--color-ink);
+  background-color: var(--color-paper);
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
 
-@utility btn-primary-gradient {
-  background-image: linear-gradient(to right, #A83900, #FF5B00);
-  color: #fff;
-  box-shadow: 0 10px 24px -8px rgba(168, 57, 0, 0.35);
-
-  &:hover {
-    background-image: linear-gradient(to right, #802A00, #E65200);
-  }
+/* Live strip dot pulse (design-system §Live strip) — 3s cycle, opacity 0.6 → 1.0, no size change. */
+@keyframes pulse-live {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
 }
 
-@utility text-on-primary {
-  color: #fff;
+@utility animate-pulse-live {
+  animation: pulse-live 3s ease-in-out infinite;
 }
 
-@utility eyebrow {
-  display: inline-block;
-  font-size: 11px;
-  letter-spacing: 0.22em;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
-@utility grain {
-  position: relative;
-  isolation: isolate;
-
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.35;
-    mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-  }
-}
-
-/* Subtler paper wash for editorial surfaces — 5-8% opacity, no blend mode.
-   z-index: -1 on the pseudo keeps the wash BEHIND any child content, so
-   applying this utility can't cover images or text. `isolation: isolate`
-   ensures the negative z-index stays scoped to this element and doesn't
-   escape into the parent's stacking context. */
-@utility paper-grain {
-  position: relative;
-  isolation: isolate;
-
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: -1;
-    opacity: 0.08;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 320'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch' seed='7'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.08 0 0 0 0 0.06 0 0 0 0.9 0'/></filter><rect width='100%25' height='100%25' filter='url(%23p)'/></svg>");
-  }
-}
-
-@utility rule-saffron {
-  display: inline-block;
-  width: 28px;
-  height: 2px;
-  background: var(--color-saffron);
-  vertical-align: middle;
-  margin-right: 8px;
-}
-
-@utility scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-}
-
-@utility numeral {
-  font-family: var(--font-noto-serif);
-  font-weight: 900;
-  letter-spacing: -0.085em;
-  line-height: 0.76;
-  color: var(--color-terra);
-  opacity: 0.72;
-  font-size: clamp(140px, 19.5vw, 320px);
-  font-feature-settings: "tnum";
-  user-select: none;
-}
-
+/* TonightTicker marquee scroll */
 @keyframes ticker {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -184,4 +112,13 @@ body {
 
 .animate-ticker:hover {
   animation-play-state: paused;
+}
+
+@utility scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }

@@ -46,10 +46,10 @@ export default async function CategoryPage({ params }: Props) {
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       <div className="mb-6">
-        <h1 className="text-2xl sm:text-3xl font-serif font-medium text-body">
+        <h1 className="text-h3 sm:text-h2 font-display font-semibold text-ink">
           Best {label} in {cityName}
         </h1>
-        <p className="mt-2 text-secondary">
+        <p className="mt-2 text-stone-deep">
           {venues.length} curated {label.toLowerCase()} ranked by Best Score
         </p>
       </div>
@@ -63,9 +63,9 @@ export default async function CategoryPage({ params }: Props) {
       </div>
 
       {venues.length === 0 && (
-        <div className="text-center py-20 text-secondary">
-          <p className="text-lg">No {label.toLowerCase()} found yet.</p>
-          <p className="mt-1 text-sm">Check back soon — we&apos;re adding more spots.</p>
+        <div className="text-center py-20 text-stone-deep">
+          <p className="text-body-lg">No {label.toLowerCase()} found yet.</p>
+          <p className="mt-1 text-body-sm">Check back soon — we&apos;re adding more spots.</p>
         </div>
       )}
     </div>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { X } from "lucide-react";
 import type { Neighborhood } from "@/lib/types";
 import {
   activeTags,
@@ -71,26 +72,11 @@ export default function ActiveChips({ sp, neighborhoods }: Props) {
         <Link
           key={c.label}
           href={c.href}
-          className="inline-flex items-center gap-1.5 pl-3 pr-2.5 py-1.5 rounded-full bg-ink text-white text-[11.5px] font-bold hover:bg-ink-soft transition-colors"
+          className="inline-flex items-center gap-1.5 pl-3 pr-2.5 py-1.5 rounded-full bg-ink text-white text-micro font-bold hover:bg-stone-deep transition-colors"
           aria-label={`Remove ${c.label}`}
         >
           {c.label}
-          <span aria-hidden>
-            <svg
-              width="10"
-              height="10"
-              viewBox="0 0 24 24"
-              fill="none"
-              aria-hidden
-            >
-              <path
-                d="M6 6l12 12M18 6L6 18"
-                stroke="#fff"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-              />
-            </svg>
-          </span>
+          <X className="w-2.5 h-2.5 text-paper" strokeWidth={2.5} aria-hidden />
         </Link>
       ))}
     </div>

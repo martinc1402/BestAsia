@@ -9,14 +9,14 @@ export default function BestScoreBadge({ score, size = "sm" }: BestScoreBadgePro
 
   if (size === "lg") {
     return (
-      <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-terra text-white font-bold text-2xl shadow-lg">
+      <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-rust text-white font-bold text-h3 ">
         {label}
       </div>
     );
   }
 
   return (
-    <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-md bg-terra text-white text-xs font-bold min-w-[28px] shadow-sm">
+    <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-md bg-rust text-white text-micro font-bold min-w-[28px] ">
       {label}
     </span>
   );

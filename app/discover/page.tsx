@@ -84,7 +84,7 @@ export default async function DiscoverPage({
   };
 
   return (
-    <div className="bg-bone min-h-screen font-[family-name:var(--font-plus-jakarta)] text-ink">
+    <div className="bg-paper min-h-screen font-sans text-ink">
       <CategoryTabs sp={sp} counts={counts} />
 
       <div className="grid grid-cols-1 md:grid-cols-[248px_1fr] lg:grid-cols-[248px_1fr_420px]">
@@ -93,13 +93,13 @@ export default async function DiscoverPage({
         <div className="px-5 sm:px-6 py-5">
           <ActiveChips sp={sp} neighborhoods={neighborhoods} />
 
-          <div className="text-[12.5px] text-secondary mb-3.5 flex items-baseline gap-1">
-            <strong className="text-ink font-extrabold">{venues.length}</strong>
+          <div className="text-body-sm text-stone-deep mb-3.5 flex items-baseline gap-1">
+            <strong className="text-ink font-bold">{venues.length}</strong>
             place{venues.length === 1 ? "" : "s"} in Manila
             {activeFilterCount(sp) > 0 && (
               <Link
                 href="/discover"
-                className="ml-3 text-terra font-bold hover:underline text-[11.5px]"
+                className="ml-3 text-rust font-bold hover:underline text-micro"
               >
                 Reset
               </Link>
@@ -127,17 +127,17 @@ export default async function DiscoverPage({
 
 function EmptyState() {
   return (
-    <div className="text-center py-20 px-6 bg-white rounded-xl border border-outline-variant">
-      <div className="font-[family-name:var(--font-noto-serif)] text-2xl font-black text-ink mb-2">
+    <div className="text-center py-20 px-6 bg-white rounded-xl border border-stone">
+      <div className="font-display text-h3 font-bold text-ink mb-2">
         Nothing matches all of those.
       </div>
-      <p className="text-secondary text-sm mb-4">
+      <p className="text-stone-deep text-body-sm mb-4">
         Try removing a filter or two &mdash; the most useful results are usually
         one constraint looser.
       </p>
       <Link
         href="/discover"
-        className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-ink text-white text-sm font-bold hover:bg-ink-soft transition-colors"
+        className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-ink text-white text-body-sm font-bold hover:bg-stone-deep transition-colors"
       >
         Reset all filters
       </Link>

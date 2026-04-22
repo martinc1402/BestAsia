@@ -1,6 +1,6 @@
 # BestPhilippines Design System
 
-**Version 1.0 · April 2026**
+**Version 1.1 · April 2026**
 *Tropical editorial. The trust of Pitchfork. The browsability of Airbnb.*
 
 ---
@@ -47,6 +47,7 @@ The tension: Pitchfork wants monochrome restraint. Airbnb wants photo-forward co
 | `--color-stone-deep` | `#A39988` | Secondary text, captions, inactive |
 | `--color-seafoam` | `#C8D9D7` | Informational backgrounds, tags |
 | `--color-ember` | `#8B3A2E` | Score warnings, low-score muted display |
+| `--color-live` | `#2E8540` | "Open now" / "live guide" status indicators. Semantic green, not a general-purpose brand color. |
 
 ### Score-specific palette
 
@@ -188,6 +189,8 @@ Not applied to:
 
 Implementation: a single 400×400px PNG grain texture, repeated, at `opacity: 0.05` on a pseudo-element. Easy to adjust site-wide if the level ends up wrong.
 
+> **Deferred:** grain texture is not implemented at launch. Scheduled for a post-launch pass so it can be tuned against real editorial photography and a production render of the pages. Track as a design-system follow-up.
+
 **Paper warmth**: the paper color (`#FBF7F0`) is warmer than pure white. That's deliberate. At a glance it reads as cream; on second look it reads as aged paper. The warmth is the tropical register working at the background level.
 
 ---
@@ -297,6 +300,10 @@ Three badges. Each means something specific; none are decorative.
 
 Nothing else gets a badge. If we add more, they devalue.
 
+### Skeleton loading state
+
+Spinners are banned; skeleton states replace them. Skeleton blocks use `bg-stone` with `animate-pulse` (Tailwind default — 2s ease-in-out opacity cycle). Shape skeletons to the content they replace: rectangular for cards, short lines for text. Never stack more than four skeleton blocks — beyond that the effect reads as broken rather than loading.
+
 ### Live strip
 
 The thin monospace strip under the nav showing Manila time, temperature, and update timestamp.
@@ -343,6 +350,8 @@ More than half of traffic will be mobile — decisions made between leaving work
 - The score stays at its full size ratio — it's the most important element regardless of viewport
 
 Test every new component at 375px width (iPhone SE territory). If it doesn't work there, it doesn't ship.
+
+> **Deferred:** the mobile bottom tab bar is not implemented at launch. At launch, the existing top nav serves both desktop and mobile. The bottom tab bar ships in a post-launch mobile-nav PR once the four primary sections have stable patterns.
 
 ---
 
@@ -426,6 +435,7 @@ Every value in this document exists as a CSS custom property and a Tailwind toke
 ## Version history
 
 - **v1.0 — April 2026.** Initial design system.
+- **v1.1 — April 2026.** Added `--color-live` semantic token (supporting palette) for "open now" / "live guide" status indicators. Added skeleton loading spec (§Components). Flagged grain texture (§Texture) and mobile bottom tab bar (§Mobile-first) as deferred to post-launch.
 
 ---
 
