@@ -48,6 +48,7 @@ export interface Venue {
   google_review_count: number | null;
   google_place_id: string | null;
   best_score: number | null;
+  final_score: number | null;
   best_score_rank: number | null;
   score_quality: number | null;
   score_popularity: number | null;

@@ -42,7 +42,7 @@ export default function VenueCardLarge({ venue, position, editorialNote }: Venue
             </div>
           )}
           <div className="absolute top-2 left-2">
-            <BestScoreBadge score={venue.best_score} />
+            <BestScoreBadge score={venue.final_score} />
           </div>
         </div>
         <div className="p-4 flex-1">

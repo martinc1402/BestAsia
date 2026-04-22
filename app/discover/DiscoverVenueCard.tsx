@@ -44,7 +44,7 @@ export default function DiscoverVenueCard({ venue }: Props) {
           </div>
         )}
         <div className="absolute top-2.5 left-2.5">
-          <BestScoreBadge score={venue.best_score} />
+          <BestScoreBadge score={venue.final_score} />
         </div>
       </div>
 

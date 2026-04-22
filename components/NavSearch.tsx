@@ -164,9 +164,9 @@ export default function NavSearch() {
                         {r.neighborhood_name ? ` · ${r.neighborhood_name}` : ""}
                       </div>
                     </div>
-                    {r.best_score != null && (
+                    {r.final_score != null && (
                       <span className="shrink-0 inline-flex items-center justify-center px-1.5 rounded-md bg-terra text-white text-[11px] font-bold min-w-[26px]">
-                        {Math.round(r.best_score)}
+                        {r.final_score.toFixed(1)}
                       </span>
                     )}
                   </Link>

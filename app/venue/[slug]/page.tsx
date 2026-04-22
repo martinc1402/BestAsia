@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       venue.short_description ||
       `${venue.name} is a ${venue.category} in ${
         venue.neighborhood_name || "Manila"
-      }. Best Score: ${Math.round(venue.best_score || 0)}/100.`,
+      }. BestPhilippines score: ${(venue.final_score ?? 0).toFixed(1)}.`,
   };
 }
 
@@ -68,8 +68,8 @@ export default async function VenuePage({ params }: Props) {
   const loveRows = [
     {
       icon: "military_tech",
-      label: "Best Score",
-      value: venue.best_score != null ? `${Math.round(venue.best_score)}/100` : "—",
+      label: "BestPhilippines Score",
+      value: venue.final_score != null ? venue.final_score.toFixed(1) : "—",
     },
     {
       icon: "location_on",
@@ -134,8 +134,8 @@ export default async function VenuePage({ params }: Props) {
               {venue.name}
             </h1>
             <div className="mt-3 flex items-center flex-wrap gap-x-3 gap-y-2 text-[12.5px] sm:text-[13.5px] font-semibold text-ink">
-              {venue.best_score != null && (
-                <BestScoreBadge score={Math.round(venue.best_score)} />
+              {venue.final_score != null && (
+                <BestScoreBadge score={venue.final_score} />
               )}
               {venue.google_rating != null && (
                 <span className="flex items-center gap-1">
@@ -329,34 +329,7 @@ export default async function VenuePage({ params }: Props) {
                       </div>
                     )}
                   </div>
-                  <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                    {[
-                      ["Food", venue.score_quality ?? 0, 35],
-                      ["Popularity", venue.score_popularity ?? 0, 25],
-                      ["Recency", venue.score_recency ?? 0, 15],
-                      ["Editorial", venue.score_editorial ?? 0, 15],
-                    ].map(([label, raw, max]) => {
-                      const v = typeof raw === "number" ? raw : 0;
-                      const m = typeof max === "number" ? max : 10;
-                      const pct = Math.min(100, Math.max(0, (v / m) * 100));
-                      return (
-                        <div key={String(label)} className="flex items-center gap-2.5">
-                          <div className="w-[80px] text-[12px] text-secondary font-semibold">
-                            {label}
-                          </div>
-                          <div className="flex-1 h-1.5 rounded bg-surface-high overflow-hidden">
-                            <div
-                              className="h-full bg-terra rounded"
-                              style={{ width: `${pct}%` }}
-                            />
-                          </div>
-                          <div className="w-[32px] text-right text-[11.5px] font-extrabold text-ink">
-                            {v.toFixed(1)}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
+                  <ScoreTransparencyBlock finalScore={venue.final_score} />
                 </div>
               ) : (
                 <div className="p-5 rounded-[14px] bg-surface-low text-secondary text-[13px]">
@@ -534,17 +507,67 @@ export default async function VenuePage({ params }: Props) {
   );
 }
 
-function BestScoreBadge({ score }: { score: number }) {
+function BestScoreBadge({ score }: { score: number | null }) {
+  if (score == null) return null;
   return (
     <div className="inline-flex items-center gap-2 px-2.5 py-1.5 rounded-[10px] bg-white border border-outline-variant">
       <span className="font-[family-name:var(--font-noto-serif)] text-[18px] font-black text-terra leading-none">
-        {score}
+        {score.toFixed(1)}
       </span>
       <span className="text-[8.5px] font-extrabold tracking-[0.18em] uppercase text-outline leading-tight">
         Best
         <br />
         Score
       </span>
+    </div>
+  );
+}
+
+function formatBoost(n: number): string {
+  return `${n >= 0 ? "+" : ""}${n.toFixed(1)}`;
+}
+
+function ScoreTransparencyBlock({
+  finalScore,
+}: {
+  finalScore: number | null;
+}) {
+  if (finalScore == null) {
+    return (
+      <div className="flex-1 flex items-center text-[12.5px] text-secondary">
+        Not yet scored.
+      </div>
+    );
+  }
+
+  const algorithmic = finalScore;
+  const boost = 0.0;
+
+  return (
+    <div className="flex-1 flex flex-col justify-center">
+      <div className="text-[10px] font-extrabold tracking-[0.22em] uppercase text-outline mb-3">
+        BestPhilippines Score
+      </div>
+      <div className="space-y-2 text-[13px]">
+        <div className="flex items-center justify-between">
+          <span className="text-secondary">Algorithmic</span>
+          <span className="font-extrabold text-ink tabular-nums">
+            {algorithmic.toFixed(1)}
+          </span>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="text-secondary">Editorial adjustment</span>
+          <span className="font-extrabold text-ink tabular-nums">
+            {formatBoost(boost)}
+          </span>
+        </div>
+        <div className="flex items-center justify-between pt-2.5 border-t border-outline-variant/60">
+          <span className="font-bold text-ink">BestPhilippines</span>
+          <span className="font-[family-name:var(--font-noto-serif)] font-black text-terra text-[22px] leading-none tabular-nums">
+            {finalScore.toFixed(1)}
+          </span>
+        </div>
+      </div>
     </div>
   );
 }
@@ -609,9 +632,9 @@ function SimilarCard({ venue }: { venue: VenueWithTags }) {
             sizes="(max-width: 1024px) 50vw, 25vw"
           />
         )}
-        {venue.best_score != null && (
+        {venue.final_score != null && (
           <span className="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-[6px] bg-terra text-white text-[11px] font-black">
-            {Math.round(venue.best_score)}
+            {venue.final_score.toFixed(1)}
           </span>
         )}
       </div>

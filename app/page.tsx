@@ -388,7 +388,7 @@ function TallHeroCard({
   pickLabel?: string;
 }) {
   if (!venue) return null;
-  const score = venue.best_score != null ? Math.round(venue.best_score) : null;
+  const score = venue.final_score != null ? venue.final_score.toFixed(1) : null;
   return (
     <Link
       href={`/venue/${venue.slug}`}
@@ -431,7 +431,7 @@ function TallHeroCard({
             {score}
           </span>
           <span className="text-[9px] sm:text-[10px] font-extrabold tracking-[0.3em] uppercase text-white/80 -mt-1">
-            Best Score · 100
+            BestPhilippines Score
           </span>
         </div>
       )}
@@ -466,7 +466,7 @@ function Sparkle() {
 }
 
 function WideCard({ venue }: { venue: VenueWithTags }) {
-  const score = venue.best_score != null ? Math.round(venue.best_score) : null;
+  const score = venue.final_score != null ? venue.final_score.toFixed(1) : null;
   return (
     <Link
       href={`/venue/${venue.slug}`}

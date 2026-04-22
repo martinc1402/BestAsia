@@ -125,7 +125,7 @@ export default function DiscoverMap({ venues }: Props) {
                 >
                   ₱{v.price_level ?? "?"}
                 </span>
-                {v.best_score != null ? Math.round(v.best_score) : "—"}
+                {v.final_score != null ? v.final_score.toFixed(1) : "—"}
               </div>
             </Link>
           );
@@ -165,9 +165,9 @@ export default function DiscoverMap({ venues }: Props) {
                 </span>
               </div>
             </div>
-            {hovered.best_score != null && (
+            {hovered.final_score != null && (
               <div className="shrink-0 self-center text-[11px] font-extrabold text-terra bg-terra/10 px-2 py-1 rounded-md">
-                {Math.round(hovered.best_score)}
+                {hovered.final_score.toFixed(1)}
               </div>
             )}
           </Link>

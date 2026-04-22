@@ -22,7 +22,8 @@ export async function getVenuesByCategory(
     .eq("city_slug", city)
     .eq("category", category)
     .eq("status", "active")
-    .order("best_score", { ascending: false })
+    .gte("final_score", 5.0)
+    .order("final_score", { ascending: false })
     .limit(limit);
 
   if (error) throw error;
@@ -38,7 +39,8 @@ export async function getTopVenues(
     .select("*")
     .eq("city_slug", city)
     .eq("status", "active")
-    .order("best_score", { ascending: false })
+    .gte("final_score", 5.0)
+    .order("final_score", { ascending: false })
     .limit(limit);
 
   if (error) throw error;
@@ -52,6 +54,7 @@ export async function getVenueBySlug(
     .from("venue_with_tags")
     .select("*")
     .eq("slug", slug)
+    .gte("final_score", 5.0)
     .single();
 
   if (error) {
@@ -72,7 +75,8 @@ export async function getSimilarVenues(
     .eq("category", venue.category)
     .eq("status", "active")
     .neq("id", venue.id)
-    .order("best_score", { ascending: false })
+    .gte("final_score", 5.0)
+    .order("final_score", { ascending: false })
     .limit(limit);
 
   if (error) throw error;
@@ -153,7 +157,8 @@ export async function getDiscoverVenues(
   let query = getClient()
     .from("venue_with_tags")
     .select("*")
-    .eq("status", "active");
+    .eq("status", "active")
+    .gte("final_score", 5.0);
 
   if (filters.city) query = query.eq("city_slug", filters.city);
   if (filters.category) query = query.eq("category", filters.category);
@@ -163,7 +168,7 @@ export async function getDiscoverVenues(
   if (filters.openNow) {
     query = query.or("is_open_late.eq.true,is_24_hours.eq.true");
   }
-  if (filters.topRated) query = query.gte("best_score", 90);
+  if (filters.topRated) query = query.gte("final_score", 9.0);
   if (tagVenueIds !== null) query = query.in("id", tagVenueIds);
 
   switch (filters.sort) {
@@ -189,7 +194,7 @@ export async function getDiscoverVenues(
       });
       break;
     default:
-      query = query.order("best_score", {
+      query = query.order("final_score", {
         ascending: false,
         nullsFirst: false,
       });
@@ -361,9 +366,10 @@ export async function getSpotlightVenue(
     .select("*")
     .eq("city_slug", citySlug)
     .eq("status", "active")
+    .gte("final_score", 5.0)
     .not("short_description", "is", null)
     .not("featured_photo_url", "is", null)
-    .order("best_score", { ascending: false, nullsFirst: false })
+    .order("final_score", { ascending: false, nullsFirst: false })
     .limit(1)
     .maybeSingle();
 
@@ -413,7 +419,8 @@ export async function getHotListVenues({
     .from("venue_with_tags")
     .select("*")
     .eq("city_slug", citySlug)
-    .eq("status", "active");
+    .eq("status", "active")
+    .gte("final_score", 5.0);
 
   if (category) query = query.eq("category", category);
   if (venueIds) query = query.in("id", venueIds);
@@ -426,7 +433,7 @@ export async function getHotListVenues({
       nullsFirst: false,
     });
   } else {
-    query = query.order("best_score", {
+    query = query.order("final_score", {
       ascending: false,
       nullsFirst: false,
     });
@@ -517,7 +524,7 @@ export interface SearchResult {
   category: string;
   neighborhood_name: string | null;
   featured_photo_url: string | null;
-  best_score: number | null;
+  final_score: number | null;
   price_level: number | null;
 }
 
@@ -533,11 +540,12 @@ export async function searchVenues(
   const { data, error } = await getClient()
     .from("venue_with_tags")
     .select(
-      "id, slug, name, category, neighborhood_name, featured_photo_url, best_score, price_level"
+      "id, slug, name, category, neighborhood_name, featured_photo_url, final_score, price_level"
     )
     .eq("status", "active")
+    .gte("final_score", 5.0)
     .or(`name.ilike.%${escaped}%,neighborhood_name.ilike.%${escaped}%`)
-    .order("best_score", { ascending: false, nullsFirst: false })
+    .order("final_score", { ascending: false, nullsFirst: false })
     .limit(limit);
 
   if (error) return [];

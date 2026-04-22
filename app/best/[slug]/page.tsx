@@ -257,9 +257,9 @@ function RankOne({ item }: { item: EnrichedListItem }) {
           <h3 className="mt-2 font-[family-name:var(--font-noto-serif)] text-ink font-black tracking-[-0.03em] leading-[0.95] text-[28px] sm:text-[38px] lg:text-[48px]">
             {v.name}
           </h3>
-          {v.best_score != null && (
+          {v.final_score != null && (
             <div className="mt-3.5">
-              <BigBestScore score={Math.round(v.best_score)} />
+              <BigBestScore score={v.final_score} />
             </div>
           )}
         </div>
@@ -357,9 +357,9 @@ function RankRow({
               sizes="100px"
             />
           )}
-          {v.best_score != null && (
+          {v.final_score != null && (
             <span className="absolute bottom-1 left-1 px-1.5 py-0.5 rounded-[5px] bg-terra text-white text-[10px] font-black shadow-sm">
-              {Math.round(v.best_score)}
+              {v.final_score.toFixed(1)}
             </span>
           )}
         </Link>
@@ -428,9 +428,9 @@ function RankRow({
               sizes="(max-width: 1024px) 50vw, 600px"
             />
           )}
-          {v.best_score != null && (
+          {v.final_score != null && (
             <div className="absolute top-3.5 left-3.5">
-              <BigBestScore score={Math.round(v.best_score)} size="md" />
+              <BigBestScore score={v.final_score} size="md" />
             </div>
           )}
         </Link>
@@ -501,7 +501,7 @@ function BigBestScore({ score, size = "xl" }: { score: number; size?: "md" | "xl
       <span
         className={`font-[family-name:var(--font-noto-serif)] font-black text-terra leading-none ${scale}`}
       >
-        {score}
+        {score.toFixed(1)}
       </span>
       <div className="text-[8px] font-extrabold tracking-[0.18em] uppercase text-outline leading-tight">
         Best

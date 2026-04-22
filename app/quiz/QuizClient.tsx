@@ -97,7 +97,7 @@ export default function QuizClient({ questions }: QuizClientProps) {
                       </div>
                     )}
                     <div className="absolute top-2 left-2">
-                      <BestScoreBadge score={venue.best_score} />
+                      <BestScoreBadge score={venue.final_score} />
                     </div>
                   </div>
                   <div className="flex-1 p-4">

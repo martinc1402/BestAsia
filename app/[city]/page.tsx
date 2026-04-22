@@ -344,9 +344,9 @@ function HoodVenueCard({ venue }: { venue: VenueWithTags }) {
             sizes="(max-width: 1024px) 220px, 33vw"
           />
         )}
-        {venue.best_score != null && (
+        {venue.final_score != null && (
           <span className="absolute top-2.5 left-2.5 inline-flex items-center gap-1 px-2 py-0.5 rounded-[6px] bg-terra text-white text-[11px] font-black shadow-sm">
-            {Math.round(venue.best_score)}
+            {venue.final_score.toFixed(1)}
           </span>
         )}
         {venue.price_level && (

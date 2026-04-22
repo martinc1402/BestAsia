@@ -37,7 +37,7 @@ export default function VenueCard({ venue }: VenueCardProps) {
         )}
         <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/40 to-transparent" />
         <div className="absolute top-2.5 left-2.5">
-          <BestScoreBadge score={venue.best_score} />
+          <BestScoreBadge score={venue.final_score} />
         </div>
         {venue.neighborhood_name && (
           <span className="absolute bottom-2 right-2.5 px-2 py-0.5 rounded-md bg-black/50 text-white text-[11px] font-medium backdrop-blur-sm">
