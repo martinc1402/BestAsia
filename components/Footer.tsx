@@ -23,7 +23,15 @@ export default function Footer() {
               <li><Link href="mailto:editors@bestphilippines.co" className="hover:text-ink transition-colors">Pitch a place</Link></li>
             </ul>
           </div>
-          <div className="col-span-2 sm:col-span-2">
+          <div>
+            <h4 className="font-semibold text-body-sm text-ink mb-3">Reference</h4>
+            <ul className="space-y-2 text-body-sm text-stone-deep">
+              <li><Link href="/about" className="hover:text-ink transition-colors">About</Link></li>
+              <li><Link href="/about/scoring" className="hover:text-ink transition-colors">How we score</Link></li>
+              <li><Link href="/about/policies" className="hover:text-ink transition-colors">Policies</Link></li>
+            </ul>
+          </div>
+          <div>
             <h4 className="font-semibold text-body-sm text-ink mb-3">BestPhilippines</h4>
             <p className="text-body-sm text-stone-deep max-w-xs">
               Fewer venues. Better curation. Two editors, arguing.
